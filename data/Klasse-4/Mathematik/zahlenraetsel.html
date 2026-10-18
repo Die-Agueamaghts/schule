@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zahlenrätsel – Klasse 4</title>
+<style>
+  :root { --ink:#1f2937; --line:#b8c4d6; --accent:#2563eb; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; background:#f3f4f6; color:var(--ink); margin:0; padding:24px; }
+  .page { max-width:780px; margin:0 auto; background:#fff; padding:36px 40px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
+  h1 { margin:0 0 4px; font-size:28px; }
+  .kopf { display:flex; gap:24px; margin:12px 0 8px; font-size:15px; }
+  .kopf span { flex:1; border-bottom:1.5px solid var(--ink); padding-bottom:2px; }
+  h2 { font-size:20px; margin:34px 0 12px; padding:6px 12px; background:#eff6ff; border-left:5px solid var(--accent); border-radius:4px; }
+  .aufgabe { margin:0 0 22px; break-inside:avoid; page-break-inside:avoid; }
+  .text { font-size:16px; line-height:1.55; margin-bottom:8px; }
+  .nr { display:inline-block; min-width:26px; font-weight:700; color:var(--accent); }
+  .rechenfeld {
+    border:1.5px solid var(--line); border-radius:6px; height:var(--h, 100px);
+    background-color:#fff;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:20px 20px; background-position:-1px -1px;
+  }
+  .antwort { margin-top:8px; font-size:15px; display:flex; align-items:flex-end; gap:8px; }
+  .antwort .strich { flex:1; border-bottom:1.5px solid var(--ink); height:20px; }
+  .kette { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:6px 0 10px; }
+  .box { width:72px; height:42px; border:2px solid #4b5563; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:17px; }
+  .box.fest { background:#f3f4f6; }
+  .pfeil { display:flex; flex-direction:column; align-items:center; font-size:13px; font-weight:700; color:#4b5563; min-width:48px; }
+  .pfeil b { font-size:20px; line-height:1; }
+  .raetselreihe { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:10px; }
+  .raetsel { border:1.5px solid #4b5563; border-radius:8px; padding:8px 10px; font-size:14px; line-height:1.4; }
+  .raetsel strong { display:block; color:var(--accent); margin-bottom:2px; }
+  .antwortreihe { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:8px; font-size:14px; }
+  .antwortreihe div { border-bottom:1.5px solid var(--ink); height:22px; }
+  .hinweis { font-size:14px; color:#4b5563; }
+  @media print {
+    body { background:#fff; padding:0; }
+    .page { box-shadow:none; padding:0; max-width:none; }
+    h2 { break-after:avoid; }
+  }
+  @media (max-width:600px) { .raetselreihe, .antwortreihe { grid-template-columns:repeat(2,1fr); } .page { padding:20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Zahlenrätsel</h1>
+  <div class="kopf"><span>Name:</span><span>Datum:</span></div>
+  <p class="hinweis">Löse die Aufgaben. Rechne in den Kästchen und schreibe dann deine Antwort auf die Linie.</p>
+  <div id="inhalt"></div>
+</div>
+
+<script>
+const R = (h) => `<div class="rechenfeld" style="--h:${h}px"></div>`;
+const A = (label='Antwort:') => `<div class="antwort"><span>${label}</span><span class="strich"></span></div>`;
+
+function aufgabe(nr, text, h, label) {
+  return `<div class="aufgabe"><div class="text"><span class="nr">${nr})</span>${text}</div>${R(h)}${A(label)}</div>`;
+}
+function kette(startOps, ende) {
+  // startOps: Liste der Rechenschritte, z. B. [": 5", "+ 135"]
+  let html = '<div class="kette"><div class="box"></div>';
+  startOps.forEach((op, i) => {
+    html += `<div class="pfeil">${op}<b>&rarr;</b></div>`;
+    html += i === startOps.length - 1 ? `<div class="box fest">${ende}</div>` : '<div class="box"></div>';
+  });
+  return html + '</div>';
+}
+function aufgabeKette(nr, text, ops, ende) {
+  return `<div class="aufgabe"><div class="text"><span class="nr">${nr})</span>${text}</div>${kette(ops, ende)}${R(100)}${A('Meine Zahl ist:')}</div>`;
+}
+
+let h = '';
+
+// 1
+h += '<h2>1. Zahlenrätsel (Grundaufgaben)</h2>';
+[
+  'Ich denke mir eine Zahl. Wenn ich zu dieser Zahl 295 addiere, erhalte ich die Zahl 823. Wie heißt meine gedachte Zahl?',
+  'Ich denke mir eine Zahl. Wenn ich meine Zahl mit 3 multipliziere, erhalte ich die Zahl 798. Wie heißt meine gedachte Zahl?',
+  'Ich denke mir eine Zahl. Wenn ich meine Zahl durch 6 dividiere, erhalte ich die Zahl 150. Wie heißt meine gedachte Zahl?',
+  'Ich denke mir eine Zahl. Von dieser subtrahiere ich 358 und erhalte 542. Wie heißt meine gedachte Zahl?'
+].forEach((t, i) => h += aufgabe(i + 1, t, 100, 'Meine Zahl ist:'));
+
+// 2
+h += '<h2>2. Gleichungen &amp; Vergleiche</h2>';
+[
+  'Wenn du zu meiner Zahl 234 addierst, erhältst du 1 000.',
+  'Wenn du zwei gleiche Zahlen multiplizierst, erhältst du 16.',
+  'Meine Zahl ist die Differenz von 678 und 345.',
+  'Dividiere 420 durch 60 und verdreifache das Ergebnis.',
+  'Subtrahiere 245 von 350 und du erhältst meine Zahl.',
+  'Dividiere 490 durch meine Zahl und du erhältst 70.',
+  'Addiere 128 zu 842, um meine Zahl zu erhalten.',
+  'Meine Zahl ist die Summe aus 500 und 250.'
+].forEach((t, i) => h += aufgabe(i + 1, t, 80, 'Meine Zahl ist:'));
+
+// 3
+h += '<h2>3. Zahlenrätsel bis Tausend</h2>';
+h += `<div class="aufgabe"><div class="text"><strong>Aufgabe A:</strong> Welche Zahl ist gesucht?</div>
+<div class="raetselreihe">
+  <div class="raetsel"><strong>a)</strong>Ich bin die größte 3-stellige Zahl, in der nur eine 9 vorkommt.</div>
+  <div class="raetsel"><strong>b)</strong>Ich liege zwischen 100 und 120. Die Summe meiner Ziffern ergibt 11.</div>
+  <div class="raetsel"><strong>c)</strong>Ich bin die kleinste ungerade 3-stellige Zahl.</div>
+  <div class="raetsel"><strong>d)</strong>Ich bin das Doppelte von 4 mal 57.</div>
+</div>${R(120)}
+<div class="antwortreihe"><div>a)</div><div>b)</div><div>c)</div><div>d)</div></div></div>`;
+h += '<div class="text"><strong>Aufgabe B:</strong> Berechne die Teilaufgaben.</div>';
+[
+  'Welche Zahl musst du zu 217 addieren, damit das Ergebnis 562 ist?',
+  'Welche Zahl musst du mit 9 multiplizieren, damit das Ergebnis 216 ist?',
+  'Welche Zahl ist das Ergebnis, wenn du die Summe aus 97 und 103 verdreifachst?'
+].forEach((t, i) => h += aufgabe(String.fromCharCode(97 + i), t, 90));
+
+// 4
+h += '<h2>4. Zahlenrätsel mit Rechenketten</h2>';
+h += aufgabeKette(1, 'Ich denke mir eine Zahl, dividiere sie durch 5, addiere 135 und erhalte 144.', ['', ''], '');
+h += aufgabeKette(2, 'Ich denke mir eine Zahl und multipliziere sie mit 4, dann subtrahiere ich 10 und dividiere durch 7 und erhalte 50.', ['', '', ''], '');
+h += aufgabeKette(3, 'Ich denke mir eine Zahl, addiere 64, dividiere das Ergebnis durch 2 und multipliziere es mit 5. Ich erhalte 400.', ['', '', ''], '');
+h += aufgabeKette(4, 'Ich denke mir eine Zahl, multipliziere sie mit dem Dreifachen von 100, addiere das Doppelte von 25 und halbiere das Ergebnis. Ich erhalte 325.', ['', '', ''], '');
+
+// 5
+h += '<h2>5. Sach- und Textaufgaben</h2>';
+h += aufgabe(1, 'Tina bekommt jeden Monat von ihrer Oma 20 Euro. Von ihren Eltern bekommt sie 8 Euro Taschengeld und für das Gassigehen mit dem Nachbarshund bekommt sie im Monat auch noch einmal 12 Euro.<br><em>Wie viel Geld kann Tina in einem Jahr sparen?</em>', 160, 'Antwortsatz:');
+h += aufgabe(2, 'Timo fährt mit dem Fahrrad zur Schule. Der Weg von seinem Haus bis zur Schule ist 4 km lang. Letztes Schuljahr ist er an 190 Tagen mit dem Fahrrad zur Schule gefahren.<br><em>Wie viele Kilometer hat er letztes Schuljahr auf dem Schulweg zurückgelegt?</em>', 160, 'Antwortsatz:');
+
+// 6
+h += '<h2>6. Rätseln und Tüfteln</h2>';
+[
+  ['<strong>Anton sagt:</strong> Wenn ich zu meiner Zahl 30 dazuzähle, erhalte ich die Hälfte von 80. Wie heißt meine Zahl?', 'Meine Zahl ist:'],
+  ['<strong>Rudi sagt:</strong> Wenn ich zu meiner Zahl 20 dazuzähle und dann 5 abziehe, erhalte ich 40. Wie heißt meine Zahl?', 'Meine Zahl ist:'],
+  ['<strong>Susi sagt:</strong> Meine Tante ist 40 Jahre alt. Mein Bruder ist 35 Jahre jünger als meine Tante. Ich bin doppelt so alt wie mein Bruder. Wie alt ist Susi?', 'Susi ist:'],
+  ['Welche Zahl kannst du durch 7 teilen und du erhältst 4?', 'Die Zahl ist:'],
+  ['<strong>Moritz sagt:</strong> Meine Zahl ist um 7 kleiner als 18.', 'Moritz’ Zahl ist:'],
+  ['<strong>Ute sagt:</strong> Meine Zahl ist um 27 kleiner als 53.', 'Utes Zahl ist:'],
+  ['<strong>Sabine sagt:</strong> Meine Zahl ist um 8 größer als 11.', 'Sabines Zahl ist:']
+].forEach(([t, l], i) => h += aufgabe(i + 1, t, 90, l));
+
+document.getElementById('inhalt').innerHTML = h;
+</script>
+</body>
+</html>

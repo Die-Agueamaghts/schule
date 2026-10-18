@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathe-Probe Klasse 4 – Übungsgenerator</title>
+<style>
+  :root { --ink:#1f2937; --line:#b8c4d6; --accent:#2563eb; --sol:#dc2626; }
+  * { box-sizing:border-box; }
+  body { font-family:'Segoe UI',Tahoma,Verdana,sans-serif; background:#f3f4f6; color:var(--ink); margin:0; padding:20px; }
+  .steuerung { max-width:860px; margin:0 auto 14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:#fff; padding:12px 16px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,.08); }
+  .steuerung label { font-size:14px; }
+  .steuerung select, .steuerung button { font:inherit; font-size:14px; padding:7px 12px; border-radius:8px; border:1.5px solid #9ca3af; background:#fff; cursor:pointer; }
+  .steuerung button.primaer { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+  .steuerung .nr { margin-left:auto; font-size:13px; color:#6b7280; }
+  .page { max-width:860px; margin:0 auto; background:#fff; padding:30px 36px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
+  .kopf { display:grid; grid-template-columns:2fr 1fr 1fr; border:2px solid var(--ink); font-size:15px; }
+  .kopf div { padding:8px 12px; border-right:2px solid var(--ink); min-height:40px; }
+  .kopf div:last-child { border-right:none; }
+  .titel { border:2px solid var(--ink); border-top:none; padding:8px 12px; font-weight:700; font-size:18px; display:flex; justify-content:space-between; align-items:center; }
+  .titel span { font-weight:400; font-size:13px; border:1.5px solid var(--ink); border-radius:20px; padding:3px 14px; }
+  .sec { border:2px solid var(--ink); border-top:none; padding:14px 16px 8px; }
+  .sec-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .sec-head h2 { font-size:18px; margin:0 0 8px; }
+  .pkt { font-size:14px; white-space:nowrap; }
+  .pkt i { display:inline-block; width:34px; border-bottom:1.5px solid #dc2626; margin-right:2px; }
+  .instr { margin:0 0 10px; font-size:14px; color:#4b5563; }
+  .nr { display:inline-block; min-width:26px; font-weight:700; color:var(--accent); }
+  .blank { display:inline-block; min-width:68px; border-bottom:1.5px solid var(--ink); text-align:center; line-height:1.25; margin:0 2px; }
+  .blank.kurz { min-width:60px; }
+  .sol { color:var(--sol); font-weight:700; visibility:hidden; }
+  body.zeige .sol { visibility:visible; }
+  .rechnen { display:grid; grid-template-columns:repeat(3,1fr); gap:16px 22px; font-size:17px; }
+  .rechnen div { white-space:nowrap; }
+  .zeile { margin:0 0 12px; font-size:16px; line-height:1.9; }
+  .lab { display:inline-block; min-width:24px; font-weight:700; color:var(--accent); }
+  .zahlen { display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 14px; }
+  .zahl { min-width:44px; text-align:center; padding:6px 8px; border:1.5px solid #6b7280; border-radius:8px; font-size:16px; }
+  body.zeige .zahl[data-p="1"] { background:#fecaca; border-color:var(--sol); }
+  .rechenfeld { border:1.5px solid var(--line); border-radius:4px; height:var(--h,100px);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:20px 20px; background-position:-1px -1px; }
+  .halb { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .halb .zelle { break-inside:avoid; page-break-inside:avoid; }
+  .halb .kopfzeile { font-size:16px; font-weight:600; margin-bottom:4px; }
+  .halb .erg { font-size:14px; margin-top:6px; }
+  .sterne { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .stern { width:100%; max-width:250px; margin:0 auto; display:block; }
+  .stern polygon, .stern line { stroke:var(--ink); stroke-width:2; fill:#fff; }
+  .stern .aussen { fill:#eff6ff; }
+  .stern text { font-size:17px; font-weight:700; fill:var(--ink); }
+  .stern text.sol { fill:var(--sol); visibility:hidden; }
+  body.zeige .stern text.sol { visibility:visible; }
+  .aufgabe { margin:0 0 18px; break-inside:avoid; page-break-inside:avoid; }
+  .text { font-size:16px; line-height:1.55; margin-bottom:8px; }
+  .antwort { margin-top:8px; font-size:15px; }
+  .antwort .blank { min-width:260px; }
+  .fuss { border:2px solid var(--ink); border-top:none; padding:14px 18px; font-size:16px; line-height:2.2; }
+  @media print {
+    body { background:#fff; padding:0; }
+    .steuerung { display:none; }
+    .page { box-shadow:none; padding:0; border-radius:0; max-width:none; }
+    @page { margin:12mm; }
+    .sec-head { break-after:avoid; }
+  }
+  @media (max-width:640px) {
+    .rechnen, .halb, .sterne { grid-template-columns:repeat(2,1fr); }
+    .page { padding:14px; }
+    .kopf { grid-template-columns:1fr; } .kopf div { border-right:none; border-bottom:2px solid var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<div class="steuerung">
+  <label>Umfang:
+    <select id="modus">
+      <option value="uebung">Großes Übungsheft (viele Aufgaben)</option>
+      <option value="probe">Eine Probe (wie in der Schule)</option>
+    </select>
+  </label>
+  <button class="primaer" id="neu">🔄 Neue Aufgaben</button>
+  <button id="loes">Lösungen anzeigen</button>
+  <button id="druck">🖨 Drucken</button>
+  <span class="nr" id="blattnr"></span>
+</div>
+
+<div class="page" id="blatt"></div>
+
+<script>
+/* ---------- Zufall (mit Seed, damit ein Blatt wiederholbar ist) ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let rnd = Math.random;
+const ri = (a,b) => Math.floor(rnd()*(b-a+1))+a;
+const pick = arr => arr[Math.floor(rnd()*arr.length)];
+function shuffle(arr){ arr=arr.slice(); for(let i=arr.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+const retry = fn => { for(let i=0;i<300;i++){ const r=fn(); if(r) return r; } throw new Error('Generator'); };
+function unique(n, gen){ const seen=new Set(), out=[]; let g=0; while(out.length<n && g++<3000){ const x=gen(out.length); const k=(typeof x==='string')?x:x.key; if(!seen.has(k)){seen.add(k);out.push(x);} } return out; }
+const fmt = n => String(n).replace('.',',');
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+const blank = (sol,w) => `<span class="blank"${w?` style="min-width:${w}px"`:''}><span class="sol">${sol}</span></span>`;
+const LET = 'abcdefghijklmnopqrstuvwxyz';
+
+const fach = {2:'Zweifache',3:'Dreifache',4:'Vierfache',5:'Fünffache',6:'Sechsfache',7:'Siebenfache',8:'Achtfache',9:'Neunfache',10:'Zehnfache',20:'Zwanzigfache',30:'Dreißigfache',40:'Vierzigfache',50:'Fünfzigfache'};
+const KF = Object.keys(fach).map(Number);
+const ord = {3:'dritten',4:'vierten',5:'fünften',6:'sechsten',7:'siebten',8:'achten',9:'neunten',10:'zehnten'};
+
+const isPrime = n => { if(n<2) return false; for(let i=2;i*i<=n;i++) if(n%i===0) return false; return true; };
+const teiler = n => { const r=[]; for(let i=1;i<=n;i++) if(n%i===0) r.push(i); return r; };
+
+/* ---------- 1. Rechne! ---------- */
+function genRechne(n){
+  const t10 = b => { const t=ri(2,Math.floor(100/b)); return 10*t; };
+  const gens = shuffle([
+    () => { const b=ri(2,9), q=t10(b); return `${b*q} : ${b} = ${blank(q)}`; },
+    () => { const a=ri(2,9), b=t10(a); return `${a} · ${b} = ${blank(a*b)}`; },
+    () => { const x=ri(11,99); return `10 · ${x} = ${blank(10*x)}`; },
+    () => { const a=ri(2,9), b=t10(a); return `${a} · ${blank(b)} = ${a*b}`; },
+    () => { const a=ri(2,9), b=t10(a); return `${blank(b)} · ${a} = ${a*b}`; },
+    () => { const b=ri(2,9), q=t10(b); return `${b*q} : ${blank(b)} = ${q}`; },
+    () => { const b=ri(2,9), q=t10(b); return `${blank(b*q)} : ${b} = ${q}`; },
+    () => { const x=ri(11,99); return `${10*x} : 10 = ${blank(x)}`; },
+    () => { const [x,y]=pick([[2,2],[2,3],[3,2],[2,4],[4,2],[2,5],[5,2],[3,3]]); return `${10*x} · ${10*y} = ${blank(100*x*y)}`; },
+    () => { const b=ri(2,9), q=t10(b); return `${b*q} : ${b} = ${blank(q)}`; }
+  ]);
+  return unique(n, i => gens[i % gens.length]()).map(s => `<div>${s}</div>`).join('');
+}
+
+/* ---------- 2. Primzahlen ---------- */
+const RANGES = [[10,20],[20,30],[30,40],[40,50],[50,60],[60,70],[70,80],[80,90]];
+function genPrimRanges(n){
+  return shuffle(RANGES).slice(0,n).map(([lo,hi],i) => {
+    const p=[]; for(let x=lo+1;x<hi;x++) if(isPrime(x)) p.push(x);
+    return `<div class="zeile"><span class="lab">${LET[i]})</span> zwischen ${lo} und ${hi} liegen: ${blank(p.join(', '),190)}</div>`;
+  }).join('');
+}
+function genPrimCircle(limit){
+  const primes=[], comps=[];
+  for(let x=2;x<=limit;x++) (isPrime(x)?primes:comps).push(x);
+  const set = shuffle(shuffle(primes).slice(0,5).concat(shuffle(comps.filter(x=>x>3)).slice(0,7)));
+  return `<div class="zeile">Kreise alle Primzahlen ein (Zahlen bis ${limit}):</div><div class="zahlen">${
+    set.map(x=>`<span class="zahl" data-p="${isPrime(x)?1:0}">${x}</span>`).join('')}</div>`;
+}
+
+/* ---------- 3. Halbschriftlich ---------- */
+function genHalb(n){
+  const types = shuffle(Array.from({length:n},(_,i)=> i%5<3 ? 'm' : 'd'));
+  return unique(n, i => retry(() => {
+    if(types[i]==='m' || types[i]===undefined){
+      const a=ri(3,9), b=ri(12,Math.min(99,Math.floor(1000/a)));
+      if(b%10===0) return null;
+      const flip = rnd()<0.25;
+      return {key:`m${a}x${b}`, t: flip?`${b} · ${a}`:`${a} · ${b}`, ans:a*b};
+    } else {
+      const d=ri(2,9), q=ri(12,Math.min(99,Math.floor(1000/d)));
+      if(q%10===0) return null;
+      return {key:`d${d}x${q}`, t:`${d*q} : ${d}`, ans:q};
+    }
+  })).map((x,i)=>
+    `<div class="zelle"><div class="kopfzeile"><span class="lab">${LET[i]})</span> ${x.t}</div><div class="rechenfeld" style="--h:150px"></div><div class="erg">Ergebnis: ${blank(x.ans,70)}</div></div>`
+  );
+}
+
+/* ---------- 4. Teiler ---------- */
+const COMPOSITES=[12,14,15,16,18,20,21,24,25,26,27,28,30,32,33,34,35,36,38,39,40,42,44,45,48,49,50,51,52,54,55,56,60,63,64,66,70,72,75,80,81,84,90,96,100];
+const PR=[13,17,19,23,29,31,37,41,43,47];
+function genTeiler(n){
+  let nums = shuffle(COMPOSITES).slice(0, n>=4 ? n-1 : n);
+  if(n>=4) nums.push(pick(PR));
+  nums = shuffle(nums);
+  return nums.map(x=>`<div class="zeile">Teiler von ${x}: ${blank(teiler(x).join(', '),280)}</div>`).join('');
+}
+
+/* ---------- 5. Multiplikationssterne ---------- */
+function genStern(){
+  const small=[3,4,5,6,7,8,9,10,11,12];
+  let a,b,c;
+  retry(()=>{
+    const useTens = rnd()<0.7;
+    const v=[pick(small),pick(small),pick(small)];
+    if(useTens) v[ri(0,2)] = 10*ri(2,9);
+    [a,b,c]=v;
+    return (a*b<=1000 && a*c<=1000 && b*c<=1000) ? 1 : 0;
+  });
+  const v={a,b,c,oL:a*b,oR:a*c,oB:b*c};
+  const patterns=[['a','b','c'],['a','b','oR'],['b','c','oL'],['a','oL','oB'],['a','c','oL'],['oL','oR','oB','c'],['b','oL','oR']];
+  return {v, shown: pick(patterns)};
+}
+function starSVG({v,shown}){
+  const t=(k,x,y)=>`<text x="${x}" y="${y}" text-anchor="middle" class="${shown.includes(k)?'':'sol'}">${v[k]}</text>`;
+  return `<svg class="stern" viewBox="0 0 300 270" xmlns="http://www.w3.org/2000/svg">
+    <polygon class="aussen" points="60,92 120,92 90,144"/>
+    <polygon class="aussen" points="240,92 180,92 210,144"/>
+    <polygon class="aussen" points="120,196 180,196 150,248"/>
+    <polygon points="150,40 60,196 240,196" style="fill:none"/>
+    <line x1="150" y1="144" x2="105" y2="118"/><line x1="150" y1="144" x2="195" y2="118"/><line x1="150" y1="144" x2="150" y2="196"/>
+    ${t('a',150,104)}${t('b',112,172)}${t('c',188,172)}${t('oL',90,114)}${t('oR',210,114)}${t('oB',150,219)}
+  </svg>`;
+}
+
+/* ---------- 6. Zahlenrätsel ---------- */
+const RAETSEL = [
+  () => { const k=pick(KF), n=ri(3,12), p=k*n; if(p>600) return null; const m=ri(50,Math.min(900,1000-p));
+    return {text:`Wenn ich das ${fach[k]} der Zahl ${n} zu ${m} addiere, erhalte ich meine Zahl.`, ans:m+p}; },
+  () => { const k=pick(KF), n=ri(3,12), p=k*n; if(p>800) return null; const m=ri(p+20,1000);
+    return {text:`Wenn ich das ${fach[k]} der Zahl ${n} von ${m} subtrahiere, erhalte ich meine Zahl.`, ans:m-p}; },
+  () => { const d=ri(3,10), q=ri(10,100), P=d*q, s=ri(10,150), x=ri(30,700), tgt=x+q-s;
+    if(tgt<20 || tgt%2 || tgt/2>500) return null;
+    return {text:`Wenn ich zu meiner Zahl den ${ord[d]} Teil von ${P} addiere und vom Ergebnis ${s} subtrahiere, erhalte ich das Doppelte von ${tgt/2}.`, ans:x}; },
+  () => { const k=ri(2,9), x=ri(5,Math.floor(850/k)), m=ri(10,100);
+    return {text:`Wenn ich meine Zahl mit ${k} multipliziere und dann ${m} addiere, erhalte ich ${k*x+m}.`, ans:x}; },
+  () => { const d=ri(2,9), r=ri(10,100), m=ri(5,80), x=d*(r+m); if(x>1000) return null;
+    return {text:`Wenn ich meine Zahl durch ${d} dividiere und dann ${m} subtrahiere, erhalte ich ${r}.`, ans:x}; },
+  () => { const d=ri(2,9), r=ri(10,100), a=ri(5,60), x=d*r-a; if(d*r>1000 || x<10) return null;
+    return {text:`Wenn ich zu meiner Zahl ${a} addiere und die Summe durch ${d} teile, erhalte ich ${r}.`, ans:x}; },
+  () => { const k=ri(2,9), b=ri(10,110), p=k*b; if(p>1000) return null; const a=ri(5,Math.min(150,p-10));
+    return {text:`Meine Zahl ist um ${a} kleiner als das ${fach[k]} von ${b}.`, ans:p-a}; },
+  () => { const x=ri(20,450), a=ri(10,200), b=2*x-a; if(b<10) return null;
+    return {text:`Das Doppelte meiner Zahl ist um ${a} größer als ${b}. Wie heißt meine Zahl?`, ans:x}; },
+  () => { const k=ri(2,9), x=ri(15,Math.floor(1000/k)), m=ri(10,120), r=k*x-m; if(r<10) return null;
+    return {text:`Wenn ich das ${fach[k]} meiner Zahl um ${m} vermindere, erhalte ich ${r}.`, ans:x}; },
+  () => { const a=ri(10,200), v=ri(0,2); let b,ans,w;
+    if(v===0){ const h=ri(a+20,500); b=2*h; ans=h-a; w='die Hälfte von'; }
+    else if(v===1){ b=ri(a,450); ans=2*b-a; w='das Doppelte von'; }
+    else { b=ri(Math.ceil((a+10)/3),300); ans=3*b-a; w='das Dreifache von'; }
+    if(ans<10||ans>1000) return null;
+    return {text:`Wenn ich zu meiner Zahl ${a} dazuzähle, erhalte ich ${w} ${b}.`, ans}; }
+];
+function genRaetsel(n){
+  const T = shuffle(RAETSEL);
+  return unique(n, i => { const r=retry(T[i%T.length]); r.key=r.text; return r; }).map((r,i)=>
+    `<div class="aufgabe"><div class="text"><span class="nr">${LET[i]})</span>${r.text}</div><div class="rechenfeld" style="--h:100px"></div><div class="antwort">Die Zahl heißt ${blank(r.ans,110)}</div></div>`);
+}
+
+/* ---------- 7. Textaufgaben ---------- */
+const GIRLS=['Tina','Lena','Mia','Anna','Emma','Sophie','Nora','Lea','Hanna','Laura'], BOYS=['Timo','Max','Paul','Jonas','Felix','Ben','Luca','Noah','Leon','Tim'];
+const person = () => rnd()<0.5 ? {n:pick(GIRLS),er:'sie',pos:'ihren'} : {n:pick(BOYS),er:'er',pos:'seinen'};
+const FAM=['Berger','Huber','Maier','Schmid','Wagner','Bauer','Fischer','Weber','Becker','Hofmann'];
+const STAEDTE=['München','Augsburg','Ingolstadt','Nürnberg','Regensburg','Passau','Landshut','Würzburg'];
+
+const TEXTE = {
+  eintritt: () => {
+    const c=ri(3,12), a=ri(c+2,25), k2=ri(1,2), k1=k2+ri(2,3), [f1,f2]=shuffle(FAM).slice(0,2);
+    const kw={2:'zwei',3:'drei',4:'vier',5:'fünf'}, ort=pick(['ins Theater','in den Zoo','ins Museum','ins Freibad','in den Zirkus','ins Kino']);
+    const zweite = k2===1 ? 'ihrer Tochter' : 'ihren zwei Kindern';
+    return {text:`Herr und Frau ${f1} gehen mit ihren ${kw[k1]} Kindern ${ort}. Sie zahlen zusammen ${2*a+k1*c} €. Herr und Frau ${f2} gehen mit ${zweite} ebenfalls ${ort} und zahlen ${2*a+k2*c} €.<br>Wie viel kostet der Eintritt für einen Erwachsenen, wie viel für ein Kind?<br><em>Tipp: Eine Skizze kann dir helfen!</em>`, ans:`Ein Kind kostet ${c} €, ein Erwachsener kostet ${a} €.`};
+  },
+  schlange: () => {
+    const k=ri(2,6), x=ri(2,12), N=1+(k+1)*x, mal=['zweimal','dreimal','viermal','fünfmal','sechsmal'][k-2];
+    const [nm,pr]=pick([['Herrn Bauer','ihm'],['Herrn Schmid','ihm'],['Herrn Wagner','ihm'],['Frau Huber','ihr'],['Frau Meier','ihr'],['Frau Berger','ihr']]);
+    const ort=pick(['An der Kinokasse stehen','An der Eisdiele stehen','An der Bushaltestelle stehen','Vor dem Zoo stehen']);
+    const vor = rnd()<0.6;
+    return {text:`${ort} ${N} Personen in einer Schlange. Vor ${nm} stehen ${mal} so viele Personen wie hinter ${pr}.<br>Wie viele Personen stehen ${vor?'vor':'hinter'} ${nm}?<br><em>Tipp: Eine Skizze kann dir helfen!</em>`, ans:`${vor?'Vor':'Hinter'} ${nm} stehen ${vor?k*x:x} Personen.`};
+  },
+  sparen: () => {
+    const p=person(), a=ri(10,30), b=ri(5,10), c=ri(5,15), m=pick([6,8,10,12]), oma=pick(['Oma','Opa']);
+    const job=pick(['das Gassigehen mit dem Nachbarshund','das Zeitungaustragen','das Rasenmähen','das Autowaschen']);
+    return {text:`${p.n} bekommt jeden Monat von ${p.er==='sie'?'ihrer':'seiner'} ${oma} ${a} €. Von ${p.pos} Eltern bekommt ${p.er} ${b} € Taschengeld und für ${job} bekommt ${p.er} im Monat auch noch einmal ${c} €.<br>Wie viel Geld kann ${p.n} in ${m} Monaten sparen?`, ans:`${p.n} kann ${(a+b+c)*m} € sparen.`};
+  },
+  schulweg: () => {
+    const p=person(), d=ri(2,8), hinzu=rnd()<0.5, t=ri(100,190); const km=d*t*(hinzu?2:1); if(km>1000) return null;
+    return {text:`${p.n} fährt mit dem Fahrrad zur Schule. Der Weg von zu Hause bis zur Schule ist ${d} km lang.${hinzu?` ${cap(p.er)} fährt jeden Tag hin und wieder zurück.`:''} Letztes Schuljahr ist ${p.er} an ${t} Tagen mit dem Fahrrad zur Schule gefahren.<br>Wie viele Kilometer ist ${p.er} ${hinzu?'insgesamt':'letztes Schuljahr auf dem Schulweg'} gefahren?`, ans:`${p.n} ist ${km} km gefahren.`};
+  },
+  rueckgeld: () => {
+    const p=person(), n=ri(3,8), pr=ri(1,4), q=ri(5,15), cost=n*pr+q, pay=[20,50,100].find(x=>x>cost);
+    return {text:`${p.n} kauft ${n} Hefte für je ${pr} € und einen Füller für ${q} €. ${cap(p.er)} bezahlt mit einem ${pay}-Euro-Schein.<br>Wie viel Geld bekommt ${p.er} zurück?`, ans:`${p.n} bekommt ${pay-cost} € zurück.`};
+  },
+  broetchen: () => {
+    const k=pick([4,5,6,8,10]), t=ri(12,60), j=ri(5,t-4), N=k*t; if(N>1000) return null;
+    return {text:`Eine Bäckerin backt ${N} Brötchen. Sie packt immer ${k} Brötchen in eine Tüte. ${j} Tüten werden verkauft.<br>Wie viele Brötchen sind noch übrig?`, ans:`Es sind noch ${(t-j)*k} Brötchen übrig.`};
+  },
+  alter: () => {
+    const A=ri(30,48), b=ri(4,10), d=A-b, nm=pick(['Susi','Anton','Rudi','Ute','Moritz']), tt=pick(['Tante','Onkel']);
+    return {text:`<strong>${nm} sagt:</strong> Mein${tt==='Tante'?'e':''} ${tt} ist ${A} Jahre alt. Mein Bruder ist ${d} Jahre jünger als mein${tt==='Tante'?'e':''} ${tt}. Ich bin doppelt so alt wie mein Bruder.<br>Wie alt ist ${nm}?`, ans:`${nm} ist ${2*b} Jahre alt.`};
+  },
+  zug: () => {
+    const [s1,s2]=shuffle(STAEDTE).slice(0,2), a=ri(200,500), b=ri(20,90), c=ri(20,90), d=ri(20,90), e=ri(20,90);
+    return {text:`Im Zug sitzen ${a} Fahrgäste. In ${s1} steigen ${b} aus und ${c} ein. In ${s2} steigen ${d} aus und ${e} ein.<br>Wie viele Fahrgäste sitzen dann im Zug?`, ans:`Dann sitzen ${a-b+c-d+e} Fahrgäste im Zug.`};
+  }
+};
+function genTexte(n, probe){
+  const keys = probe ? ['eintritt','schlange'] : shuffle(Object.keys(TEXTE));
+  return unique(n, i => { const r=retry(TEXTE[keys[i%keys.length]]); r.key=r.text; return r; }).map((r,i)=>
+    `<div class="aufgabe"><div class="text"><span class="nr">${i+1})</span>${r.text}</div><div class="rechenfeld" style="--h:170px"></div><div class="antwort">Antwort: ${blank(r.ans,300).replace('min-width:300px','min-width:420px')}</div></div>`);
+}
+
+/* ---------- Blatt zusammenbauen ---------- */
+const OMEGA = {
+  probe:  {rechne:12, prim:2, kreis:0, halb:5,  teiler:2, stern:2, raetsel:3,  text:2},
+  uebung: {rechne:36, prim:4, kreis:2, halb:15, teiler:8, stern:6, raetsel:12, text:12}
+};
+function sec(nr, titel, instr, body, pts){
+  return `<section class="sec"><div class="sec-head"><h2>${nr}. ${titel}</h2><span class="pkt"><i></i>/ ${fmt(pts)}</span></div>${instr?`<p class="instr">${instr}</p>`:''}${body}</section>`;
+}
+function render(seed, modus){
+  rnd = mulberry32(seed);
+  const C = OMEGA[modus]; let total=0, h='';
+  h += `<div class="kopf"><div>Name:</div><div>Datum:</div><div>Klasse:</div></div>
+        <div class="titel">Mathematik-${modus==='probe'?'Probe':'Übungsheft'}: Multiplikation, Division &amp; Zahlenrätsel <span>Viel Erfolg!</span></div>`;
+
+  let p;
+  p = C.rechne*0.5; total+=p;
+  h += sec(1,'Rechne!','',`<div class="rechnen">${genRechne(C.rechne)}</div>`,p);
+
+  p = C.prim + C.kreis; total+=p;
+  let b2 = genPrimRanges(C.prim);
+  b2 = `<p class="instr" style="margin-top:0">Nenne je zwei Primzahlen, die …</p>` + b2;
+  for(let i=0;i<C.kreis;i++) b2 += genPrimCircle(i===0?50:100);
+  h += sec(2,'Primzahlen','',b2,p);
+
+  const halb = genHalb(C.halb); p = halb.length; total+=p;
+  h += sec(3,'Rechne halbschriftlich!','Zerlege die Aufgabe in leichtere Teilaufgaben (z. B. 4 · 26 = 4 · 20 + 4 · 6).',`<div class="halb">${halb.join('')}</div>`,p);
+
+  p = C.teiler; total+=p;
+  h += sec(4,'Schreibe alle Teiler der Zahlen auf!','',genTeiler(C.teiler),p);
+
+  p = C.stern*1.5; total+=p;
+  const sterne = Array.from({length:C.stern},()=>starSVG(genStern()));
+  h += sec(5,'Löse die Multiplikationssterne!','Die Zahl in jedem äußeren Dreieck ist das Produkt der beiden inneren Zahlen, die daneben stehen.',`<div class="sterne">${sterne.join('')}</div>`,p);
+
+  p = C.raetsel*1.5; total+=p;
+  h += sec(6,'Löse die Zahlenrätsel!','',genRaetsel(C.raetsel).join(''),p);
+
+  p = C.text*2; total+=p;
+  h += sec(7,'Löse die Sachaufgaben!','Rechne und schreibe einen Antwortsatz. Eine Skizze kann dir helfen.',genTexte(C.text, modus==='probe').join(''),p);
+
+  h += `<div class="fuss">Von ${fmt(total)} Punkten hast du <span class="blank kurz"></span> Punkte erreicht. &nbsp;&nbsp; Note: <span class="blank kurz"></span></div>`;
+  document.getElementById('blatt').innerHTML = h;
+  document.getElementById('blattnr').textContent = 'Blatt-Nr. ' + seed;
+}
+
+/* ---------- Steuerung ---------- */
+let seed = parseInt((location.hash||'').slice(1),10);
+if(!(seed>9999)) seed = Math.floor(Math.random()*90000)+10000;
+function aktualisieren(){
+  render(seed, document.getElementById('modus').value);
+  try{ history.replaceState(null,'','#'+seed); }catch(e){}
+}
+document.getElementById('modus').addEventListener('change', aktualisieren);
+document.getElementById('neu').addEventListener('click', ()=>{ seed=Math.floor(Math.random()*90000)+10000; aktualisieren(); window.scrollTo(0,0); });
+document.getElementById('loes').addEventListener('click', e=>{ const z=document.body.classList.toggle('zeige'); e.target.textContent = z?'Lösungen verbergen':'Lösungen anzeigen'; });
+document.getElementById('druck').addEventListener('click', ()=>window.print());
+aktualisieren();
+</script>
+</body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les pronoms y et en – Lernseite</title>
+<style>
+:root{
+  --bg:#f4f6fb; --card:#ffffff; --ink:#1c2333; --muted:#5b647a; --line:#dde2ee;
+  --brand:#25408f; --brand-2:#3b5bc0; --brand-bg:#eaeffc;
+  --en:#c2410c; --en-bg:#fff0e4; --y:#0f766e; --y-bg:#e3f6f3;
+  --key:#fff0a6; --ok:#15803d; --ok-bg:#e6f7ec; --bad:#b91c1c; --bad-bg:#fdecec; --warn:#a16207; --warn-bg:#fff7de;
+  --shadow:0 2px 10px rgba(30,40,80,.08); --radius:14px; --navh:58px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10141f; --card:#182030; --ink:#e8ecf6; --muted:#9aa5bd; --line:#2b3550;
+    --brand:#8ea6ff; --brand-2:#a9bbff; --brand-bg:#1c2745;
+    --en:#ffa266; --en-bg:#3a2314; --y:#5fd6c8; --y-bg:#10332f;
+    --key:#5a4b00; --ok:#5ee08a; --ok-bg:#12301f; --bad:#ff8a8a; --bad-bg:#3a1717; --warn:#f2c14e; --warn-bg:#352a0c;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+h1,h2,h3{line-height:1.25;margin:0 0 .5em}
+p{margin:.4em 0}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+
+/* ---------- Header & Navigation ---------- */
+header.hero{background:linear-gradient(135deg,#1c2f6b,#2f4fb3 60%,#4a6fe0);color:#fff;padding:34px 0 30px;position:relative}
+header.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,#0055a4 33%,#fff 33% 66%,#ef4135 66%)}
+.hero h1{font-size:clamp(1.6rem,4.5vw,2.4rem);margin-bottom:.2em}
+.hero p{opacity:.92;max-width:680px}
+.hero .tags{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.hero .tags span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:3px 12px;border-radius:99px;font-size:.88rem}
+nav.tabs{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow);height:var(--navh)}
+nav.tabs .wrap{display:flex;align-items:center;gap:8px;height:100%}
+.tab{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer}
+.tab:hover{background:var(--brand-bg);color:var(--brand)}
+.tab[aria-selected="true"]{background:var(--brand);color:#fff}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:.9rem;color:var(--muted)}
+.pill{background:var(--brand-bg);color:var(--brand);border-radius:99px;padding:3px 12px;font-weight:700;white-space:nowrap}
+.switch{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+@media (max-width:640px){.switch span.t{display:none}.tab{padding:9px 11px}}
+
+main{padding:26px 0 60px}
+.panel[hidden]{display:none}
+
+/* ---------- Sections & cards ---------- */
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 24px 26px;margin-bottom:26px}
+section.block>h2{display:flex;align-items:center;gap:10px;font-size:1.5rem;padding-bottom:10px;border-bottom:2px solid var(--line);margin-bottom:16px}
+h2 .badge,.badge{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:2px 10px;border-radius:8px;color:#fff;background:var(--brand)}
+.badge.en{background:var(--en)} .badge.y{background:var(--y)}
+h3{font-size:1.1rem;margin-top:1.2em;color:var(--brand)}
+.lead{font-size:1.05rem;color:var(--muted)}
+
+/* ---------- Highlights ---------- */
+mark.key,.key{background:var(--key);padding:0 .25em;border-radius:4px;font-weight:600;color:inherit}
+.hl{font-weight:800;padding:0 .35em;border-radius:6px;display:inline-block;line-height:1.35}
+.hl-en{background:var(--en-bg);color:var(--en);border:1.5px solid var(--en)}
+.hl-y{background:var(--y-bg);color:var(--y);border:1.5px solid var(--y)}
+.place{border-bottom:2px dotted var(--muted);font-weight:600}
+.fr{font-style:italic}
+code.kbd{background:var(--brand-bg);color:var(--brand);padding:1px 7px;border-radius:6px;font-size:.92em}
+
+/* ---------- Rule boxes (Rahmen) ---------- */
+.rule{position:relative;border:3px solid var(--brand);border-radius:16px;padding:26px 22px 16px;margin:28px 0 20px;background:var(--brand-bg)}
+.rule::before{content:attr(data-label);position:absolute;top:-15px;left:18px;background:var(--brand);color:#fff;font-weight:800;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 14px;border-radius:99px}
+.rule.en{border-color:var(--en);background:var(--en-bg)} .rule.en::before{background:var(--en)}
+.rule.y{border-color:var(--y);background:var(--y-bg)} .rule.y::before{background:var(--y)}
+.rule.warn{border-color:var(--warn);background:var(--warn-bg)} .rule.warn::before{background:var(--warn)}
+.rule ul{margin:.2em 0;padding-left:1.2em}
+.rule li{margin:.35em 0}
+.rule ul.checks{list-style:none;padding-left:0}
+.rule ul.checks li{padding-left:1.7em;position:relative}
+.rule ul.checks li::before{content:"✔";position:absolute;left:0;color:var(--brand);font-weight:800}
+.rule.en ul.checks li::before{color:var(--en)} .rule.y ul.checks li::before{color:var(--y)}
+
+/* ---------- Examples ---------- */
+.exlist{display:grid;gap:12px;margin:12px 0}
+.ex{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--brand);border-radius:12px;padding:12px 16px}
+.ex.en{border-left-color:var(--en)} .ex.y{border-left-color:var(--y)}
+.ex .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:2px}
+.ex.en .num{background:var(--en)} .ex.y .num{background:var(--y)}
+.ex .line{font-size:1.06rem;margin:.1em 0}
+.ex .line.a{font-weight:600}
+.ex .repl{font-size:.88rem;color:var(--muted);margin:.3em 0 0}
+.ex .de{font-size:.93rem;color:var(--muted);margin:.35em 0 0;padding-top:.35em;border-top:1px dashed var(--line)}
+body.no-de .de{display:none}
+.subhead{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-weight:700;color:var(--brand)}
+.subhead::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- Speech bubbles ---------- */
+.scene{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:linear-gradient(135deg,#17224a,#2a2f6f);color:#fff;border-radius:16px;padding:18px 20px;margin:14px 0}
+.scene .emoji{font-size:3rem}
+.bubbles{display:grid;gap:10px;flex:1;min-width:240px}
+.bubble{position:relative;background:#fff;color:#1c2333;padding:10px 16px;border-radius:18px;max-width:420px;font-weight:600}
+.bubble.b1{border-bottom-left-radius:4px}
+.bubble.b2{margin-left:auto;border-bottom-right-radius:4px;background:#fff7ea}
+.scene .cap{flex-basis:100%;font-size:.9rem;opacity:.9}
+
+/* ---------- Tables ---------- */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.97rem;overflow:hidden;border-radius:12px;border:1px solid var(--line)}
+.tbl th,.tbl td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl thead th{background:var(--brand);color:#fff}
+.tbl tbody tr:nth-child(even){background:var(--brand-bg)}
+.tbl-wrap{overflow-x:auto}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:720px){.cmp{grid-template-columns:1fr}}
+.cmp .col{border-radius:14px;padding:14px 16px;border:2px solid}
+.cmp .col.en{border-color:var(--en);background:var(--en-bg)} .cmp .col.y{border-color:var(--y);background:var(--y-bg)}
+.cmp h4{margin:0 0 6px;font-size:1.05rem}
+.cmp .pair{margin:8px 0;padding:8px 10px;background:var(--card);border-radius:10px}
+.cmp .pair small{display:block;color:var(--muted)}
+
+/* ---------- Tool widgets ---------- */
+.tool{background:var(--brand-bg);border:2px dashed var(--brand-2);border-radius:14px;padding:16px 18px;margin:16px 0}
+.tool h3{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{appearance:none;border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;padding:5px 14px;border-radius:99px;cursor:pointer}
+.chip:hover{border-color:var(--brand)}
+.chip.sel{border-color:var(--brand);background:var(--brand);color:#fff}
+.chip.is-en.sel{background:var(--en);border-color:var(--en)} .chip.is-y.sel{background:var(--y);border-color:var(--y)}
+.result{background:var(--card);border-radius:12px;padding:12px 16px;border:1px solid var(--line);min-height:70px}
+.result .big{font-size:1.2rem}
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:8px 0}
+.controls label{display:flex;align-items:center;gap:6px;font-weight:600;cursor:pointer}
+select,input[type=text]{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:10px;padding:7px 10px}
+select:focus,input[type=text]:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(59,91,192,.2)}
+.schema{font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.92rem;margin-top:8px}
+
+/* ---------- Mistakes ---------- */
+.err{display:grid;gap:8px;margin:10px 0}
+.err .row{display:flex;flex-wrap:wrap;gap:10px 22px;background:var(--card);border-radius:10px;padding:8px 14px;border:1px solid var(--line)}
+.err .bad{color:var(--bad);font-weight:600}
+.err .good{color:var(--ok);font-weight:600}
+.err .bad::before{content:"✘ "} .err .good::before{content:"✔ "}
+.cta{display:inline-block;margin-top:10px;background:var(--brand);color:#fff;border:0;font:inherit;font-weight:700;padding:11px 22px;border-radius:12px;cursor:pointer;box-shadow:var(--shadow)}
+.cta:hover{background:var(--brand-2)}
+
+/* ---------- Übungen ---------- */
+.charbar{position:sticky;top:var(--navh);z-index:15;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:18px;box-shadow:var(--shadow)}
+.charbar span{font-size:.85rem;color:var(--muted);margin-right:4px}
+.charbar button{appearance:none;border:1px solid var(--line);background:var(--brand-bg);color:var(--brand);font:inherit;font-weight:700;min-width:34px;height:34px;border-radius:8px;cursor:pointer}
+.charbar button:hover{background:var(--brand);color:#fff}
+.sec-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sec-head .cnt{margin-left:auto;font-size:.9rem}
+.qcard{display:flex;gap:14px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;background:var(--card);transition:border-color .2s,background .2s}
+.qcard .qn{flex:none;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800}
+.qcard .qb{flex:1;min-width:0}
+.qcard.ok{border-color:var(--ok);background:var(--ok-bg)} .qcard.ok .qn{background:var(--ok)}
+.qcard.bad{border-color:var(--bad);background:var(--bad-bg)} .qcard.bad .qn{background:var(--bad)}
+.qcard.almost{border-color:var(--warn);background:var(--warn-bg)} .qcard.almost .qn{background:var(--warn)}
+.sent{font-size:1.1rem;margin:.1em 0 .5em}
+.ctx{color:var(--muted);font-style:italic;margin:0 0 .3em}
+.cue{display:inline-block;background:var(--key);border-radius:8px;padding:2px 10px;font-size:.93rem;margin:4px 0 8px}
+.btn{appearance:none;border:2px solid var(--brand);background:var(--brand);color:#fff;font:inherit;font-weight:700;padding:7px 18px;border-radius:10px;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.ghost:hover{background:var(--brand-bg)}
+.btn-choice{appearance:none;font:inherit;font-weight:800;font-size:1.05rem;min-width:84px;padding:8px 20px;border-radius:12px;cursor:pointer;border:2.5px solid var(--line);background:var(--card);color:var(--ink)}
+.btn-choice[data-v=en]:hover{border-color:var(--en);color:var(--en)} .btn-choice[data-v=y]:hover{border-color:var(--y);color:var(--y)}
+.btn-choice.right{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.btn-choice.wrong{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+.row-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.fb{margin-top:10px;font-size:.96rem}
+.fb:empty{display:none}
+.fb .verdict{font-weight:800}
+.fb .ok{color:var(--ok)} .fb .no{color:var(--bad)} .fb .almost{color:var(--warn)}
+.fb .why{margin-top:4px;color:var(--muted)}
+.fb .diff{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:8px 0;line-height:1.9}
+.fb .diff b.l{display:inline-block;min-width:92px;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.03em}
+del{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;padding:0 3px;border-radius:4px}
+ins{background:var(--ok-bg);color:var(--ok);text-decoration:none;font-weight:700;padding:0 3px;border-radius:4px;border-bottom:2px solid var(--ok)}
+.mini{appearance:none;border:1px solid var(--brand);background:transparent;color:var(--brand);font:inherit;font-size:.85rem;font-weight:700;padding:3px 10px;border-radius:8px;cursor:pointer;margin-top:4px}
+.mini:hover{background:var(--brand-bg)}
+.gap{width:4.6em;text-align:center;font-weight:700;margin:0 4px}
+.ans-in{width:100%;max-width:560px}
+.build{min-height:52px;border:2px dashed var(--brand-2);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--brand-bg)}
+.build:empty::before{content:"Klicke die Wörter in der richtigen Reihenfolge …";color:var(--muted);font-size:.92rem;padding:0 6px}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.tok{appearance:none;font:inherit;font-weight:700;padding:6px 14px;border-radius:10px;border:2px solid var(--brand);background:var(--card);color:var(--brand);cursor:pointer}
+.tok:hover{background:var(--brand);color:#fff}
+.tok.used{visibility:hidden}
+.build .tok{background:var(--brand);color:#fff}
+.progress{height:12px;background:var(--line);border-radius:99px;overflow:hidden;min-width:90px;flex:1;max-width:260px}
+.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--y),var(--brand-2));transition:width .4s}
+.summary{border:3px solid var(--ok);background:var(--ok-bg);border-radius:16px;padding:16px 20px;margin-top:10px}
+.summary[hidden]{display:none}
+.top-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 0 40px}
+@media print{nav.tabs,.charbar,.row-btns,.cta,.tool{display:none!important}.panel[hidden]{display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Les pronoms adverbiaux <em>y</em> et <em>en</em></h1>
+    <p>Die Pronomen <strong>y</strong> und <strong>en</strong> – Ortsangaben elegant ersetzen. Lernen, verstehen, üben und die eigenen Antworten direkt prüfen und korrigieren lassen.</p>
+    <div class="tags"><span>Französisch</span><span>Grammatik</span><span>Regeln &amp; Beispiele</span><span>Interaktive Übungen</span></div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Hauptnavigation">
+  <div class="wrap">
+    <div role="tablist" style="display:flex;gap:6px">
+      <button class="tab" role="tab" id="tab-lernen" aria-selected="true" aria-controls="lernen" data-tab="lernen">📘 Lernen</button>
+      <button class="tab" role="tab" id="tab-ueben" aria-selected="false" aria-controls="ueben" data-tab="ueben">✍️ Üben</button>
+    </div>
+    <div class="nav-right">
+      <label class="switch" title="Deutsche Übersetzungen ein-/ausblenden"><input type="checkbox" id="toggleDe" checked> <span class="t">Übersetzungen</span></label>
+      <span class="pill" id="navScore">0 / 0</span>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- =====================================================  LERNEN  ===================================================== -->
+<div class="panel" id="lernen" role="tabpanel" aria-labelledby="tab-lernen">
+
+  <section class="block" id="intro">
+    <h2><span class="badge">Überblick</span> Worum geht es?</h2>
+    <p class="lead">Die Pronomen <span class="hl hl-y">y</span> und <span class="hl hl-en">en</span> ersetzen <mark class="key">Ortsangaben</mark>. So musst du den Ort nicht ständig wiederholen – wie im Deutschen „dort“, „dorthin“ oder „von dort“.</p>
+
+    <div class="scene" aria-label="Illustration: Sprechblasen">
+      <div class="emoji" aria-hidden="true">🚀</div>
+      <div class="bubbles">
+        <div class="bubble b1">Ils vont sur Mars.</div>
+        <div class="bubble b2">Quand est-ce qu’ils <span class="hl hl-en">en</span> reviennent ?</div>
+      </div>
+      <div class="cap">„Sie fliegen zum Mars.“ – „Wann kommen sie (von dort) zurück?“ → <em>revenir <b>de</b> Mars</em> ⇒ <b>en</b>. Und: <em>aller <b>sur</b> Mars</em> ⇒ <span class="hl hl-y" style="background:#e3f6f3">y</span> (<em>Ils y vont.</em>)</div>
+    </div>
+
+    <div class="cmp">
+      <div class="col en">
+        <h4><span class="hl hl-en">en</span> = Ortsangabe mit <b>de</b></h4>
+        <p>Woher? – <em>d’où ?</em></p>
+        <div class="pair"><span class="fr">Elle revient <u>de Paris</u>.</span><br>→ <span class="fr">Elle <span class="hl hl-en">en</span> revient.</span></div>
+      </div>
+      <div class="col y">
+        <h4><span class="hl hl-y">y</span> = Ortsangabe mit <b>à, chez, dans, sur …</b></h4>
+        <p>Wo? Wohin? – <em>où ?</em></p>
+        <div class="pair"><span class="fr">Elle va <u>à Paris</u>.</span><br>→ <span class="fr">Elle <span class="hl hl-y">y</span> va.</span></div>
+      </div>
+    </div>
+    <div class="rule" data-label="Merkhilfe">
+      <p style="font-size:1.1rem;margin:0"><b>de</b> ⇒ <span class="hl hl-en">en</span> &nbsp;&nbsp;|&nbsp;&nbsp; <b>alle anderen Ortspräpositionen</b> ⇒ <span class="hl hl-y">y</span></p>
+    </div>
+  </section>
+
+  <!-- ---------- EN ---------- -->
+  <section class="block" id="en">
+    <h2><span class="badge en">Le pronom en</span> Das Pronomen <em>en</em></h2>
+
+    <div class="rule en" data-label="Regel – en">
+      <ul class="checks">
+        <li>Mit dem Pronomen <span class="hl hl-en">en</span> ersetzt du <mark class="key">alle Ortsangaben, die mit <i>de</i> eingeleitet werden</mark> – also auch <i>du</i> (= de + le), <i>de la</i>, <i>de l’</i>, <i>des</i> (= de + les) und <i>d’</i>.</li>
+        <li><span class="hl hl-en">en</span> ist <mark class="key">unveränderlich</mark> (keine Anpassung an Geschlecht oder Zahl).</li>
+        <li>Übersetzung: <b>„von dort“</b> oder <b>„dort“</b>. Häufig übersetzt du es <mark class="key">gar nicht</mark> ins Deutsche.</li>
+        <li><b>Stellung:</b> wie alle Pronomen <mark class="key">vor dem konjugierten Verb</mark>; im <i>futur proche</i> und bei Modalverben <mark class="key">vor dem Infinitiv</mark>.</li>
+      </ul>
+    </div>
+
+    <div class="subhead">Beispiele aus der Lektion</div>
+    <div class="exlist" id="exEn"></div>
+
+    <div class="subhead">Weitere Beispiele</div>
+    <div class="exlist" id="exEn2"></div>
+
+    <h3>Typische Verben mit <i>de</i> (→ <span class="hl hl-en">en</span>)</h3>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Verb</th><th>Bedeutung</th><th>Beispiel</th><th>mit Pronomen</th></tr></thead>
+      <tbody>
+        <tr><td><b>revenir de</b></td><td>zurückkommen aus/von</td><td class="fr">Il revient de Genève.</td><td class="fr">Il <span class="hl hl-en">en</span> revient.</td></tr>
+        <tr><td><b>sortir de</b></td><td>herauskommen aus</td><td class="fr">Elle sort du musée.</td><td class="fr">Elle <span class="hl hl-en">en</span> sort.</td></tr>
+        <tr><td><b>partir de</b></td><td>abfahren von</td><td class="fr">On part de Lausanne.</td><td class="fr">On <span class="hl hl-en">en</span> part.</td></tr>
+        <tr><td><b>venir de</b></td><td>kommen aus</td><td class="fr">Ils viennent de la gare.</td><td class="fr">Ils <span class="hl hl-en">en</span> viennent.</td></tr>
+        <tr><td><b>arriver de</b></td><td>ankommen aus</td><td class="fr">Tu arrives d’Italie.</td><td class="fr">Tu <span class="hl hl-en">en</span> arrives.</td></tr>
+        <tr><td><b>rentrer de</b></td><td>heimkommen von</td><td class="fr">Je rentre de l’école.</td><td class="fr">J’<span class="hl hl-en">en</span> rentre.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- ---------- Y ---------- -->
+  <section class="block" id="y">
+    <h2><span class="badge y">Le pronom y</span> Das Pronomen <em>y</em></h2>
+
+    <div class="rule y" data-label="Regel – y">
+      <ul class="checks">
+        <li>Mit dem Pronomen <span class="hl hl-y">y</span> ersetzt du <mark class="key">Ortsangaben, die mit <i>à, chez, dans, sur, sous, devant, derrière</i> u. Ä. eingeleitet werden</mark> (auch <i>au, à la, à l’, aux</i>).</li>
+        <li><b>Nur</b> Ortsangaben mit <i>de</i> ersetzt du <u>nicht</u> mit <span class="hl hl-y">y</span>, sondern mit <span class="hl hl-en">en</span>.</li>
+        <li><span class="hl hl-y">y</span> ist <mark class="key">unveränderlich</mark>.</li>
+        <li>Übersetzung: <b>„dort, dorthin, da, dahin“</b>. Häufig übersetzt du es <mark class="key">gar nicht</mark> ins Deutsche.</li>
+        <li><b>Stellung:</b> wie alle Pronomen <mark class="key">vor dem konjugierten Verb</mark> oder – falls vorhanden – <mark class="key">vor dem Infinitiv</mark>.</li>
+      </ul>
+    </div>
+
+    <div class="subhead">Beispiele aus der Lektion</div>
+    <div class="exlist" id="exY"></div>
+
+    <div class="subhead">Weitere Beispiele</div>
+    <div class="exlist" id="exY2"></div>
+
+    <h3>Typische Präpositionen &amp; Verben für <span class="hl hl-y">y</span></h3>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Ausdruck</th><th>Bedeutung</th><th>Beispiel</th><th>mit Pronomen</th></tr></thead>
+      <tbody>
+        <tr><td><b>aller à / chez</b></td><td>gehen / fahren nach, zu</td><td class="fr">Je vais chez Paul.</td><td class="fr">J’<span class="hl hl-y">y</span> vais.</td></tr>
+        <tr><td><b>habiter à</b></td><td>wohnen in</td><td class="fr">Elle habite à Lausanne.</td><td class="fr">Elle <span class="hl hl-y">y</span> habite.</td></tr>
+        <tr><td><b>rester à / dans</b></td><td>bleiben in</td><td class="fr">Nous restons dans l’hôtel.</td><td class="fr">Nous <span class="hl hl-y">y</span> restons.</td></tr>
+        <tr><td><b>être sur / sous / devant / derrière</b></td><td>sein auf / unter / vor / hinter</td><td class="fr">Le chat est sous le lit.</td><td class="fr">Il <span class="hl hl-y">y</span> est.</td></tr>
+        <tr><td><b>se trouver dans</b></td><td>sich befinden in</td><td class="fr">Le dessin se trouve dans le livre.</td><td class="fr">Le dessin s’<span class="hl hl-y">y</span> trouve.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- ---------- Y oder EN ---------- -->
+  <section class="block" id="vergleich">
+    <h2><span class="badge">Vergleich</span> <em>y</em> oder <em>en</em>?</h2>
+    <p>Entscheidend ist <mark class="key">allein die Präposition</mark> vor der Ortsangabe – nicht das Verb und nicht der Ort selbst. Dieselbe Stadt kann mit beiden Pronomen ersetzt werden:</p>
+    <div class="cmp">
+      <div class="col en">
+        <h4><span class="hl hl-en">en</span> – von dort</h4>
+        <div class="pair"><span class="fr">Il revient <u>de</u> Paris.</span> → <span class="fr">Il <span class="hl hl-en">en</span> revient.</span><small>Er kommt (von dort) zurück.</small></div>
+        <div class="pair"><span class="fr">Nous partons <u>de</u> la gare.</span> → <span class="fr">Nous <span class="hl hl-en">en</span> partons.</span><small>Wir fahren (von dort) ab.</small></div>
+        <div class="pair"><span class="fr">Elle sort <u>du</u> cinéma.</span> → <span class="fr">Elle <span class="hl hl-en">en</span> sort.</span><small>Sie kommt (dort) heraus.</small></div>
+      </div>
+      <div class="col y">
+        <h4><span class="hl hl-y">y</span> – dort / dorthin</h4>
+        <div class="pair"><span class="fr">Il va <u>à</u> Paris.</span> → <span class="fr">Il <span class="hl hl-y">y</span> va.</span><small>Er fährt dorthin.</small></div>
+        <div class="pair"><span class="fr">Nous restons <u>à</u> la gare.</span> → <span class="fr">Nous <span class="hl hl-y">y</span> restons.</span><small>Wir bleiben dort.</small></div>
+        <div class="pair"><span class="fr">Elle va <u>au</u> cinéma.</span> → <span class="fr">Elle <span class="hl hl-y">y</span> va.</span><small>Sie geht dorthin.</small></div>
+      </div>
+    </div>
+
+    <div class="tool" id="prepTool">
+      <h3>🔎 Präpositions-Finder</h3>
+      <p>Klicke eine Präposition an – du siehst sofort, welches Pronomen du brauchst.</p>
+      <div class="chips" id="prepChips"></div>
+      <div class="result" id="prepResult" aria-live="polite"><span style="color:var(--muted)">Wähle oben eine Präposition …</span></div>
+    </div>
+  </section>
+
+  <!-- ---------- Stellung ---------- -->
+  <section class="block" id="stellung">
+    <h2><span class="badge">Stellung</span> Wo steht das Pronomen?</h2>
+    <div class="rule" data-label="Regel – Stellung">
+      <ul class="checks">
+        <li><b>Präsens:</b> <span class="hl hl-y">y</span>/<span class="hl hl-en">en</span> steht <mark class="key">vor dem konjugierten Verb</mark>. <span class="fr">Il <b>y</b> va.</span></li>
+        <li><b>Futur proche &amp; Modalverben:</b> <mark class="key">vor dem Infinitiv</mark>. <span class="fr">Il va <b>y</b> aller. / Il veut <b>y</b> aller.</span></li>
+        <li><b>Passé composé:</b> <mark class="key">vor dem Hilfsverb</mark> (<i>avoir</i> / <i>être</i>). <span class="fr">Il <b>y</b> est allé.</span></li>
+        <li><b>Verneinung:</b> <i>ne</i> steht vor dem Pronomen, <i>pas</i> hinter dem konjugierten Verb. <span class="fr">Il n’<b>y</b> va pas.</span></li>
+        <li><b>Elision:</b> <i>je → j’</i>, <i>ne → n’</i>, <i>se → s’</i> vor <i>y</i> und <i>en</i>: <span class="fr">j’y vais, n’en … pas, il s’y trouve</span>. <i>il en</i> / <i>elle en</i> werden nicht verkürzt.</li>
+      </ul>
+    </div>
+
+    <div class="tool" id="posTool">
+      <h3>🧩 Satz-Baukasten</h3>
+      <p>Stelle ein, dann siehst du, wo das Pronomen landet.</p>
+      <div class="controls">
+        <label>Pronomen
+          <select id="posPron"><option value="y">y (aller)</option><option value="en">en (revenir)</option></select>
+        </label>
+        <label>Zeitform / Konstruktion
+          <select id="posTense">
+            <option value="present">Präsens</option>
+            <option value="fp">Futur proche</option>
+            <option value="modal">Modalverb (vouloir)</option>
+            <option value="pc">Passé composé</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="posNeg"> Verneinung</label>
+      </div>
+      <div class="result" id="posResult" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ---------- Fehler ---------- -->
+  <section class="block" id="fehler">
+    <h2><span class="badge">Achtung</span> Typische Fehler</h2>
+    <div class="err">
+      <div class="row"><span class="bad fr">Ils y reviennent de Genève.</span><span class="good fr">Ils en reviennent.</span><span style="color:var(--muted)">de ⇒ en, nie y</span></div>
+      <div class="row"><span class="bad fr">Il va de Paris. → Il en va.</span><span class="good fr">Il va à Paris. → Il y va.</span><span style="color:var(--muted)">Prüfe die Präposition, nicht das Verb</span></div>
+      <div class="row"><span class="bad fr">Je veux aller y.</span><span class="good fr">Je veux y aller.</span><span style="color:var(--muted)">Pronomen vor den Infinitiv</span></div>
+      <div class="row"><span class="bad fr">Nous allons en revenir → Nous en allons revenir.</span><span class="good fr">Nous allons en revenir.</span><span style="color:var(--muted)">futur proche: vor dem Infinitiv</span></div>
+      <div class="row"><span class="bad fr">Il est allé y.</span><span class="good fr">Il y est allé.</span><span style="color:var(--muted)">passé composé: vor dem Hilfsverb</span></div>
+      <div class="row"><span class="bad fr">Je y vais.</span><span class="good fr">J’y vais.</span><span style="color:var(--muted)">Elision nicht vergessen</span></div>
+      <div class="row"><span class="bad fr">Il ne y va plus.</span><span class="good fr">Il n’y va plus.</span><span style="color:var(--muted)">ne → n’ vor y/en</span></div>
+    </div>
+
+    <div class="rule warn" data-label="Gut zu wissen (Zusatz)">
+      <ul>
+        <li><b>Ortsangaben mit <i>en</i> (Präposition!)</b> ersetzt du mit <span class="hl hl-y">y</span>: <span class="fr">Il va <u>en France</u>. → Il <b>y</b> va.</span> Das <i>en</i> in <i>en France</i> ist eine Präposition – nicht zu verwechseln mit dem Pronomen <span class="hl hl-en">en</span> (<i>de France</i>).</li>
+        <li><b>Imperativ:</b> <span class="fr">Vas-y ! Allons-y ! Allez-y !</span> – das Pronomen steht hier <i>hinter</i> dem Verb. Bei <i>tu vas</i> wird das <i>s</i> im Imperativ vor <i>y</i> wieder angehängt.</li>
+        <li><b>Ausblick:</b> <span class="hl hl-y">y</span> und <span class="hl hl-en">en</span> können auch Sachen ersetzen (<span class="fr">penser <u>à</u> → y penser, parler <u>de</u> → en parler</span>) – das ist aber nicht Teil dieser Lektion.</li>
+      </ul>
+    </div>
+
+    <p style="text-align:center"><button class="cta" data-goto="ueben">Jetzt üben ✍️</button></p>
+  </section>
+</div>
+
+<!-- =====================================================  ÜBEN  ===================================================== -->
+<div class="panel" id="ueben" role="tabpanel" aria-labelledby="tab-ueben" hidden>
+
+  <div class="top-actions">
+    <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:220px">
+      <strong>Fortschritt</strong>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <span class="pill" id="score">0 / 0</span>
+    </div>
+    <button class="btn ghost" id="resetAll">↺ Alles zurücksetzen</button>
+  </div>
+
+  <div class="charbar" id="chars" aria-label="Sonderzeichen einfügen">
+    <span>Sonderzeichen:</span>
+  </div>
+
+  <div class="summary" id="summary" hidden>
+    <h3 style="margin-top:0;color:var(--ok)">🎉 Geschafft!</h3>
+    <p id="summaryText"></p>
+  </div>
+
+  <!-- Teil A -->
+  <section class="block">
+    <div class="sec-head"><h2 style="border:0;margin:0;padding:0"><span class="badge">Teil A</span> y oder en?</h2><span class="pill cnt" id="cnt-A"></span></div>
+    <p>Welches Pronomen ersetzt die <span class="place">unterstrichene</span> Ortsangabe? Klicke auf <b>y</b> oder <b>en</b>.</p>
+    <div id="exA"></div>
+  </section>
+
+  <!-- Teil B -->
+  <section class="block">
+    <div class="sec-head"><h2 style="border:0;margin:0;padding:0"><span class="badge">Teil B</span> Lückensätze</h2><span class="pill cnt" id="cnt-B"></span></div>
+    <p>Trage das fehlende Pronomen <b>y</b> oder <b>en</b> ein und drücke <kbd>Enter</kbd> oder „Prüfen“.</p>
+    <div id="exB"></div>
+  </section>
+
+  <!-- Teil C -->
+  <section class="block">
+    <div class="sec-head"><h2 style="border:0;margin:0;padding:0"><span class="badge">Teil C</span> Satzbau</h2><span class="pill cnt" id="cnt-C"></span></div>
+    <p>Bringe die Wörter in die richtige Reihenfolge. Achte besonders auf die <mark class="key">Stellung des Pronomens</mark>.</p>
+    <div id="exC"></div>
+  </section>
+
+  <!-- Teil D -->
+  <section class="block">
+    <div class="sec-head"><h2 style="border:0;margin:0;padding:0"><span class="badge">Teil D</span> Hast du das verstanden?</h2><span class="pill cnt" id="cnt-D"></span></div>
+    <p>Beantworte die Fragen und verwende das Pronomen <b>y</b> oder <b>en</b>. Schreibe den <mark class="key">ganzen Antwortsatz</mark> (das „Oui,“/„Non,“ am Anfang ist optional). Beim Prüfen siehst du deine Fehler <del>durchgestrichen</del> und die <ins>Korrektur</ins>.</p>
+    <div id="exD"></div>
+  </section>
+</div>
+
+</main>
+<footer>Les pronoms y et en · Lernseite · alle Übungen laufen lokal in deinem Browser</footer>
+
+<script>
+/* =========================================================  Helfer  ========================================================= */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const hl  = s => s.replace(/\{(y|en)\}/g, (m,p) => `<span class="hl hl-${p}">${p}</span>`);
+
+/* =========================================================  Tabs  ========================================================= */
+function showTab(name){
+  $$('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
+  $$('.panel').forEach(p => p.hidden = (p.id !== name));
+  window.scrollTo({top:0, behavior:'smooth'});
+  try{ history.replaceState(null,'','#'+name); }catch(e){}
+}
+$$('.tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+$$('[data-goto]').forEach(b => b.addEventListener('click', () => showTab(b.dataset.goto)));
+if (location.hash === '#ueben') showTab('ueben');
+
+$('#toggleDe').addEventListener('change', e => document.body.classList.toggle('no-de', !e.target.checked));
+
+/* =========================================================  Lern-Beispiele  ========================================================= */
+const EX_EN = [
+  {q:"– Est-ce qu’ils sont déjà revenus de Genève ?", a:"– Non, ils {en} reviennent ce soir.", repl:"de Genève", de:"Sind sie schon aus Genf zurückgekommen? – Nein, sie kommen heute Abend (von dort) zurück."},
+  {q:"– Louis est déjà sorti de la boutique du musée ?", a:"– Oui, il {en} est déjà sorti.", repl:"de la boutique du musée", de:"Ist Louis schon aus dem Museumsshop herausgekommen? – Ja, er ist schon herausgekommen."},
+  {q:"– Quand est-ce que vous partez de Lausanne ?", a:"– On va {en} partir demain.", repl:"de Lausanne", de:"Wann fahrt ihr von Lausanne ab? – Wir fahren (von dort) morgen ab."},
+  {q:"– Les enfants doivent sortir de l’eau maintenant ?", a:"– Oui, mais ils ne veulent pas {en} sortir.", repl:"de l’eau", de:"Müssen die Kinder jetzt aus dem Wasser? – Ja, aber sie wollen nicht herauskommen."},
+  {q:"– Est-ce que Paul est déjà sorti du gymnase ?", a:"– Non, il n’{en} est pas encore sorti.", repl:"du gymnase", de:"Ist Paul schon aus der Turnhalle gekommen? – Nein, er ist noch nicht herausgekommen."}
+];
+const EX_EN2 = [
+  {q:"– Tu rentres de l’école ?", a:"– Oui, j’{en} rentre.", repl:"de l’école", de:"Kommst du aus der Schule nach Hause? – Ja, ich komme gerade (von dort)."},
+  {q:"– Elle sort du cinéma à 22 heures ?", a:"– Oui, elle {en} sort à 22 heures.", repl:"du cinéma (du = de + le)", de:"Kommt sie um 22 Uhr aus dem Kino? – Ja, sie kommt um 22 Uhr heraus."},
+  {q:"– Vous venez de la gare ?", a:"– Oui, nous {en} venons.", repl:"de la gare", de:"Kommt ihr vom Bahnhof? – Ja, wir kommen von dort."},
+  {q:"– Ils arrivent d’Italie demain ?", a:"– Oui, ils {en} arrivent demain.", repl:"d’Italie", de:"Kommen sie morgen aus Italien an? – Ja, sie kommen morgen (von dort) an."},
+  {q:"– Tu vas bientôt partir de Berlin ?", a:"– Oui, je vais {en} partir bientôt.", repl:"de Berlin", de:"Verlässt du bald Berlin? – Ja, ich werde bald (von dort) wegfahren."},
+  {q:"– Elle est revenue des États-Unis ?", a:"– Non, elle n’{en} est pas encore revenue.", repl:"des États-Unis (des = de + les)", de:"Ist sie aus den USA zurückgekehrt? – Nein, sie ist noch nicht zurückgekehrt."}
+];
+const EX_Y = [
+  {q:"Cherchez dans le livre d’histoire.", a:"→ Le dessin s’{y} trouve.", repl:"dans le livre d’histoire", de:"Sucht im Geschichtsbuch. → Die Zeichnung befindet sich darin."},
+  {q:"Regardez le dessin sur ce mur.", a:"→ On peut {y} voir Gaston Lagaffe.", repl:"sur ce mur", de:"Seht euch die Zeichnung an dieser Wand an. → Man kann dort Gaston Lagaffe sehen."},
+  {q:"Vous allez à la piscine ?", a:"→ Pour {y} aller, traversez la Grand-Place.", repl:"à la piscine", de:"Ihr geht ins Schwimmbad? → Um dorthin zu gelangen, überquert den Grand-Place."},
+  {q:"– Arthur est déjà allé au club ?", a:"– Non, il n’{y} va plus.", repl:"au club", de:"War Arthur schon im Club? – Nein, er geht nicht mehr hin."}
+];
+const EX_Y2 = [
+  {q:"– Tu habites à Berlin ?", a:"– Oui, j’{y} habite depuis longtemps.", repl:"à Berlin", de:"Wohnst du in Berlin? – Ja, ich wohne schon lange dort."},
+  {q:"– Le livre est sur la table ?", a:"– Oui, il {y} est.", repl:"sur la table", de:"Liegt das Buch auf dem Tisch? – Ja, es liegt dort."},
+  {q:"– Tu vas chez le dentiste ?", a:"– Oui, j’{y} vais demain.", repl:"chez le dentiste", de:"Gehst du zum Zahnarzt? – Ja, ich gehe morgen hin."},
+  {q:"– Les clés sont dans mon sac ?", a:"– Oui, elles {y} sont.", repl:"dans mon sac", de:"Sind die Schlüssel in meiner Tasche? – Ja, sie sind darin."},
+  {q:"– Le chat dort sous le lit ?", a:"– Oui, il {y} dort.", repl:"sous le lit", de:"Schläft die Katze unter dem Bett? – Ja, sie schläft dort."},
+  {q:"– Vous allez au cinéma ?", a:"– Oui, nous allons {y} aller samedi.", repl:"au cinéma", de:"Geht ihr ins Kino? – Ja, wir gehen Samstag hin."},
+  {q:"– Elle est déjà allée à Paris ?", a:"– Non, elle n’{y} est jamais allée.", repl:"à Paris", de:"War sie schon einmal in Paris? – Nein, sie war noch nie dort."},
+  {q:"– Ils veulent aller à la plage ?", a:"– Oui, ils veulent {y} aller.", repl:"à la plage", de:"Wollen sie an den Strand? – Ja, sie wollen dorthin."}
+];
+function renderEx(id, list, kind, start=1){
+  $(id).innerHTML = list.map((e,i) => `
+    <article class="ex ${kind}">
+      <div class="num">${start+i}</div>
+      <div>
+        <p class="line q fr">${hl(e.q)}</p>
+        <p class="line a fr">${hl(e.a)}</p>
+        <p class="repl">ersetzt: <span class="place">${e.repl}</span> → <span class="hl hl-${kind}">${kind}</span></p>
+        <p class="de">🇩🇪 ${e.de}</p>
+      </div>
+    </article>`).join('');
+}
+renderEx('#exEn', EX_EN, 'en', 1);
+renderEx('#exEn2', EX_EN2, 'en', 6);
+renderEx('#exY', EX_Y, 'y', 1);
+renderEx('#exY2', EX_Y2, 'y', 5);
+
+/* =========================================================  Präpositions-Finder  ========================================================= */
+const PREPS = [
+  ['de','en',"Il revient <u>de</u> Paris.","Il {en} revient."],
+  ['du','en',"Elle sort <u>du</u> cinéma.","Elle {en} sort."],
+  ['de la','en',"Nous revenons <u>de la</u> plage.","Nous {en} revenons."],
+  ['de l’','en',"Ils sortent <u>de l’</u>eau.","Ils {en} sortent."],
+  ['des','en',"Je reviens <u>des</u> États-Unis.","J’{en} reviens."],
+  ['d’','en',"Elle arrive <u>d’</u>Italie.","Elle {en} arrive."],
+  ['à','y',"Il va <u>à</u> Paris.","Il {y} va."],
+  ['au','y',"Nous allons <u>au</u> musée.","Nous {y} allons."],
+  ['à la','y',"Tu vas <u>à la</u> piscine ?","Tu {y} vas ?"],
+  ['à l’','y',"Je reste <u>à l’</u>hôtel.","J’{y} reste."],
+  ['aux','y',"Ils vont <u>aux</u> Pays-Bas.","Ils {y} vont."],
+  ['chez','y',"Je vais <u>chez</u> Paul.","J’{y} vais."],
+  ['dans','y',"Il est <u>dans</u> le jardin.","Il {y} est."],
+  ['sur','y',"Le livre est <u>sur</u> la table.","Il {y} est."],
+  ['sous','y',"Le chat dort <u>sous</u> le lit.","Il {y} dort."],
+  ['devant','y',"Les enfants jouent <u>devant</u> la maison.","Ils {y} jouent."],
+  ['derrière','y',"Le vélo est <u>derrière</u> la maison.","Il {y} est."]
+];
+$('#prepChips').innerHTML = PREPS.map((p,i) => `<button class="chip is-${p[1]}" data-i="${i}">${p[0]}</button>`).join('');
+$('#prepChips').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  $$('#prepChips .chip').forEach(c => c.classList.toggle('sel', c === b));
+  const [prep, pron, src, res] = PREPS[+b.dataset.i];
+  const why = pron === 'en'
+    ? 'Die Präposition enthält <b>de</b> (Woher?) ⇒ <span class="hl hl-en">en</span>'
+    : 'Die Präposition ist nicht <i>de</i> (Wo? Wohin?) ⇒ <span class="hl hl-y">y</span>';
+  $('#prepResult').innerHTML = `<div class="big"><b>${prep}</b> → <span class="hl hl-${pron}">${pron}</span></div>
+    <p>${why}</p><p class="fr">${src} &nbsp;→&nbsp; <b>${hl(res)}</b></p>`;
+});
+
+/* =========================================================  Satz-Baukasten  ========================================================= */
+const POS = {
+  y:{
+    present:{base:["Il va à Paris.","Il ne va pas à Paris."], res:["Il {y} va.","Il n’{y} va pas."]},
+    fp:{base:["Il va aller à Paris.","Il ne va pas aller à Paris."], res:["Il va {y} aller.","Il ne va pas {y} aller."]},
+    modal:{base:["Il veut aller à Paris.","Il ne veut pas aller à Paris."], res:["Il veut {y} aller.","Il ne veut pas {y} aller."]},
+    pc:{base:["Il est allé à Paris.","Il n’est pas allé à Paris."], res:["Il {y} est allé.","Il n’{y} est pas allé."]}
+  },
+  en:{
+    present:{base:["Il revient de Paris.","Il ne revient pas de Paris."], res:["Il {en} revient.","Il n’{en} revient pas."]},
+    fp:{base:["Il va revenir de Paris.","Il ne va pas revenir de Paris."], res:["Il va {en} revenir.","Il ne va pas {en} revenir."]},
+    modal:{base:["Il veut revenir de Paris.","Il ne veut pas revenir de Paris."], res:["Il veut {en} revenir.","Il ne veut pas {en} revenir."]},
+    pc:{base:["Il est revenu de Paris.","Il n’est pas revenu de Paris."], res:["Il {en} est revenu.","Il n’{en} est pas revenu."]}
+  }
+};
+const SCHEMA = {
+  present:["Subjekt + ({ne}) + <b>PRON</b> + konjugiertes Verb + ({pas})","Das Pronomen steht <b>vor dem konjugierten Verb</b>."],
+  fp:["Subjekt + ({ne}) + <i>aller</i> + ({pas}) + <b>PRON</b> + Infinitiv","Im futur proche steht das Pronomen <b>vor dem Infinitiv</b>, nicht vor <i>aller</i>."],
+  modal:["Subjekt + ({ne}) + Modalverb + ({pas}) + <b>PRON</b> + Infinitiv","Beim Modalverb steht das Pronomen <b>vor dem Infinitiv</b>."],
+  pc:["Subjekt + ({ne}) + <b>PRON</b> + avoir/être + ({pas}) + Participe passé","Im passé composé steht das Pronomen <b>vor dem Hilfsverb</b>."]
+};
+function renderPos(){
+  const p = $('#posPron').value, t = $('#posTense').value, n = $('#posNeg').checked ? 1 : 0;
+  const d = POS[p][t];
+  const sch = SCHEMA[t];
+  $('#posResult').innerHTML = `
+    <p style="color:var(--muted);margin:0">Ausgangssatz: <span class="fr">${d.base[n]}</span></p>
+    <p class="big fr" style="margin:.3em 0"><b>${hl(d.res[n])}</b></p>
+    <div class="schema">${sch[0].replace('PRON',p).replace('({ne})', n?'ne':'(ne)').replace('({pas})', n?'pas':'(pas)')}</div>
+    <p style="margin-top:8px">${sch[1]}${n?' <i>ne</i> steht vor dem Pronomen, <i>pas</i> nach dem konjugierten Verb.':''}</p>`;
+}
+['posPron','posTense','posNeg'].forEach(id => $('#'+id).addEventListener('change', renderPos));
+renderPos();
+
+/* =========================================================  Übungen: Daten  ========================================================= */
+const A = [
+  {id:'A1', pre:"Elle revient ", ph:"de Paris", post:" ce soir.", ans:'en', res:"Elle {en} revient ce soir.", why:"<i>revenir <b>de</b> Paris</i> – Ortsangabe mit <b>de</b> ⇒ en."},
+  {id:'A2', pre:"Nous allons ", ph:"à la plage", post:".", ans:'y', res:"Nous {y} allons.", why:"<i>aller <b>à</b> la plage</i> – Ortsangabe mit <b>à</b> ⇒ y."},
+  {id:'A3', pre:"Il sort ", ph:"du cinéma", post:" à 22 heures.", ans:'en', res:"Il {en} sort à 22 heures.", why:"<i>du</i> = <b>de</b> + le ⇒ en."},
+  {id:'A4', pre:"Les enfants jouent ", ph:"dans le jardin", post:".", ans:'y', res:"Ils {y} jouent.", why:"<i><b>dans</b> le jardin</i> ⇒ y."},
+  {id:'A5', pre:"Je reviens ", ph:"de la bibliothèque", post:" à 17 heures.", ans:'en', res:"J’{en} reviens à 17 heures.", why:"<i><b>de</b> la bibliothèque</i> ⇒ en."},
+  {id:'A6', pre:"Tu vas ", ph:"chez ton ami", post:" ?", ans:'y', res:"Tu {y} vas ?", why:"<i><b>chez</b> ton ami</i> ⇒ y."},
+  {id:'A7', pre:"Ils partent ", ph:"de Lausanne", post:" demain.", ans:'en', res:"Ils {en} partent demain.", why:"<i>partir <b>de</b> Lausanne</i> ⇒ en."},
+  {id:'A8', pre:"Le chat dort ", ph:"sous le lit", post:".", ans:'y', res:"Il {y} dort.", why:"<i><b>sous</b> le lit</i> ⇒ y."},
+  {id:'A9', pre:"Elle sort ", ph:"de l’eau", post:".", ans:'en', res:"Elle {en} sort.", why:"<i><b>de</b> l’eau</i> ⇒ en."},
+  {id:'A10', pre:"Le livre est ", ph:"sur la table", post:".", ans:'y', res:"Il {y} est.", why:"<i><b>sur</b> la table</i> ⇒ y."},
+  {id:'A11', pre:"Nous revenons ", ph:"des États-Unis", post:" lundi.", ans:'en', res:"Nous {en} revenons lundi.", why:"<i>des</i> = <b>de</b> + les ⇒ en."},
+  {id:'A12', pre:"Il attend ", ph:"devant l’école", post:".", ans:'y', res:"Il {y} attend.", why:"<i><b>devant</b> l’école</i> ⇒ y."}
+];
+const B = [
+  {id:'B1', q:"Tu vas au cinéma ce soir ?", pre:"Oui, j’", post:" vais.", ans:'y', full:"Oui, j’y vais.", why:"<i>au cinéma</i> (à + le) ⇒ <b>y</b>, vor dem Verb: <i>j’y vais</i>."},
+  {id:'B2', q:"Ils reviennent de Rome demain ?", pre:"Oui, ils ", post:" reviennent demain.", ans:'en', full:"Oui, ils en reviennent demain.", why:"<i>de Rome</i> ⇒ <b>en</b>."},
+  {id:'B3', q:"Elle est déjà sortie de la gare ?", pre:"Oui, elle ", post:" est déjà sortie.", ans:'en', full:"Oui, elle en est déjà sortie.", why:"<i>de la gare</i> ⇒ <b>en</b>, vor dem Hilfsverb <i>est</i>."},
+  {id:'B4', q:"Vous allez à la piscine ?", pre:"Non, nous n’", post:" allons pas.", ans:'y', full:"Non, nous n’y allons pas.", why:"<i>à la piscine</i> ⇒ <b>y</b>; Verneinung: <i>n’y … pas</i>."},
+  {id:'B5', q:"Paul est déjà revenu du stade ?", pre:"Non, il n’", post:" est pas encore revenu.", ans:'en', full:"Non, il n’en est pas encore revenu.", why:"<i>du stade</i> (de + le) ⇒ <b>en</b>."},
+  {id:'B6', q:"Tu veux aller chez Julie ?", pre:"Oui, je veux ", post:" aller.", ans:'y', full:"Oui, je veux y aller.", why:"<i>chez Julie</i> ⇒ <b>y</b>, vor dem Infinitiv."},
+  {id:'B7', q:"Vous allez partir de Munich ?", pre:"Oui, nous allons ", post:" partir demain.", ans:'en', full:"Oui, nous allons en partir demain.", why:"<i>de Munich</i> ⇒ <b>en</b>, vor dem Infinitiv (futur proche)."},
+  {id:'B8', q:"Les enfants sont dans la cour ?", pre:"Oui, ils ", post:" sont.", ans:'y', full:"Oui, ils y sont.", why:"<i>dans la cour</i> ⇒ <b>y</b>."}
+];
+const C = [
+  {id:'C1', tokens:["il","n'y","va","plus"], full:"Il n’y va plus.", de:"Er geht nicht mehr hin.", why:"<i>n’y</i> + konjugiertes Verb + <i>plus</i>."},
+  {id:'C2', tokens:["nous","allons","en","revenir","lundi"], full:"Nous allons en revenir lundi.", de:"Wir kommen Montag (von dort) zurück.", why:"futur proche: <b>en</b> steht vor dem Infinitiv <i>revenir</i>."},
+  {id:'C3', tokens:["ils","ne","veulent","pas","y","aller"], full:"Ils ne veulent pas y aller.", de:"Sie wollen nicht dorthin gehen.", why:"Modalverb: <b>y</b> steht vor dem Infinitiv <i>aller</i>."},
+  {id:'C4', tokens:["elle","en","est","déjà","sortie"], full:"Elle en est déjà sortie.", de:"Sie ist schon herausgekommen.", why:"passé composé: <b>en</b> steht vor dem Hilfsverb <i>est</i>."},
+  {id:'C5', tokens:["je","n'en","suis","pas","encore","revenu"], full:"Je n’en suis pas encore revenu.", de:"Ich bin noch nicht zurückgekommen.", why:"<i>n’en</i> vor dem Hilfsverb <i>suis</i>, <i>pas encore</i> dahinter."},
+  {id:'C6', tokens:["on","peut","y","voir","Gaston","Lagaffe"], full:"On peut y voir Gaston Lagaffe.", de:"Man kann dort Gaston Lagaffe sehen.", why:"<b>y</b> steht vor dem Infinitiv <i>voir</i>."}
+];
+const D = [
+  {id:'D1', q:"On va à la fête de l’Escalade ce soir ?", cue:"Non, je / ne pas / vouloir / aller.", ans:["je ne veux pas y aller"], full:"Non, je ne veux pas y aller.", pron:'y', place:['fête','escalade'],
+   pos:"Modalverb: <b>y</b> steht <b>vor dem Infinitiv</b> – <i>je ne veux pas <b>y</b> aller</i>.", de:"Gehen wir heute Abend zum Escalade-Fest? – Nein, ich will nicht hingehen."},
+  {id:'D2', q:"Est-ce que vous allez à Lausanne avec Nathan ?", cue:"Non, nous / ne pas / aller / avec lui.", ans:["nous n'y allons pas avec lui"], full:"Non, nous n’y allons pas avec lui.", pron:'y', place:['lausanne'],
+   pos:"Präsens: <b>y</b> steht vor dem konjugierten Verb, <i>ne</i> wird zu <i>n’</i>: <i>nous <b>n’y</b> allons pas</i>.", de:"Fahrt ihr mit Nathan nach Lausanne? – Nein, wir fahren nicht mit ihm hin."},
+  {id:'D3', q:"Quand est-ce que vous revenez de Suisse ?", cue:"Nous / revenir (futur proche) / lundi.", ans:["nous allons en revenir lundi"], full:"Nous allons en revenir lundi.", pron:'en', place:['suisse'],
+   pos:"<i>de Suisse</i> ⇒ <b>en</b>. Im futur proche steht es <b>vor dem Infinitiv</b>: <i>nous allons <b>en</b> revenir</i>.", de:"Wann kommt ihr aus der Schweiz zurück? – Wir kommen Montag (von dort) zurück."},
+  {id:'D4', q:"Tu es allé au musée, hier ?", cue:"Oui, je / j’ / passer toute la journée.", ans:["j'y ai passé toute la journée"], full:"Oui, j’y ai passé toute la journée.", pron:'y', place:['musée'],
+   pos:"Passé composé: <b>y</b> steht <b>vor dem Hilfsverb</b> <i>avoir</i> – <i>j’<b>y</b> ai passé</i>.", de:"Warst du gestern im Museum? – Ja, ich habe den ganzen Tag dort verbracht."},
+  {id:'D5', q:"Quand est-ce que vous finissez l’école aujourd’hui ?", cue:"Nous / revenir / vers 16 heures.", ans:["nous en revenons vers 16 heures"], full:"Nous en revenons vers 16 heures.", pron:'en', place:['école'],
+   pos:"Gemeint ist <i>revenir <b>de</b> l’école</i> ⇒ <b>en</b>, vor dem konjugierten Verb: <i>nous <b>en</b> revenons</i>.", de:"Wann seid ihr heute mit der Schule fertig? – Wir kommen gegen 16 Uhr (von dort) zurück."},
+  {id:'D6', q:"Est-ce que tu vas au stade ?", cue:"Oui, mais je / revenir (futur proche) / très tard.", ans:["je vais en revenir très tard"], full:"Oui, mais je vais en revenir très tard.", pron:'en', place:['stade'],
+   pos:"<i>revenir <b>du</b> stade</i> ⇒ <b>en</b>; futur proche: <i>je vais <b>en</b> revenir</i>.", de:"Gehst du zum Stadion? – Ja, aber ich komme erst sehr spät (von dort) zurück."}
+];
+const SECTIONS = {A:A, B:B, C:C, D:D};
+const TOTAL = A.length + B.length + C.length + D.length;
+
+/* =========================================================  Zustand  ========================================================= */
+const KEY = 'y-en-lernstand-v1';
+let state = {};
+try{ state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ state = {}; }
+function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function setState(id, v){ state[id] = v; persist(); updateProgress(); }
+function updateProgress(){
+  let done = 0;
+  for(const k in SECTIONS){
+    const n = SECTIONS[k].filter(x => state[x.id] === 'ok').length;
+    done += n;
+    $('#cnt-'+k).textContent = `${n} / ${SECTIONS[k].length}`;
+  }
+  $('#score').textContent = `${done} / ${TOTAL}`;
+  $('#navScore').textContent = `${done} / ${TOTAL}`;
+  $('#bar').style.width = (done/TOTAL*100) + '%';
+  const sum = $('#summary');
+  if(done === TOTAL){
+    sum.hidden = false;
+    $('#summaryText').textContent = `Du hast alle ${TOTAL} Aufgaben richtig gelöst. Merke: de ⇒ en, alle anderen Ortspräpositionen ⇒ y – und das Pronomen steht vor dem konjugierten Verb bzw. vor dem Infinitiv.`;
+  } else sum.hidden = true;
+}
+function setFb(el, kind, html){ el.innerHTML = html; el.dataset.kind = kind; }
+function cardClass(card, cls){ card.classList.remove('ok','bad','almost'); if(cls) card.classList.add(cls); }
+const verdict = (kind, text) => `<div class="verdict ${kind}">${text}</div>`;
+
+/* =========================================================  Text-Normalisierung & Diff  ========================================================= */
+function norm(s){
+  s = String(s).toLowerCase().replace(/[’‘`´]/g, "'").replace(/\s+/g, ' ').trim();
+  s = s.replace(/[.!?]+$/, '').trim();
+  s = s.replace(/^(oui|non)\b\s*[,.;:–-]?\s*/, '');
+  s = s.replace(/^mais\s+/, '');
+  s = s.replace(/\s*'\s*/g, "'");
+  return s;
+}
+const strip = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const tok = s => s.replace(/'/g, "' ").split(/\s+/).filter(Boolean);
+
+function lcsDiff(a, b){
+  const n = a.length, m = b.length;
+  const dp = Array.from({length:n+1}, () => Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--) for(let j=m-1;j>=0;j--)
+    dp[i][j] = a[i] === b[j] ? dp[i+1][j+1] + 1 : Math.max(dp[i+1][j], dp[i][j+1]);
+  const ops = []; let i=0, j=0;
+  while(i<n && j<m){
+    if(a[i] === b[j]){ ops.push({t:'same', w:a[i]}); i++; j++; }
+    else if(dp[i+1][j] >= dp[i][j+1]){ ops.push({t:'del', w:a[i]}); i++; }
+    else { ops.push({t:'ins', w:b[j]}); j++; }
+  }
+  while(i<n) ops.push({t:'del', w:a[i++]});
+  while(j<m) ops.push({t:'ins', w:b[j++]});
+  return ops;
+}
+function joinPieces(p){
+  let out = '';
+  p.forEach((x,i) => { if(i && !p[i-1].raw.endsWith("'")) out += ' '; out += x.html; });
+  return out.replace(/'/g, '’');
+}
+function diffBlock(userN, ansN){
+  const ops = lcsDiff(tok(userN), tok(ansN));
+  const u = ops.filter(o => o.t !== 'ins').map(o => ({raw:o.w, html: o.t === 'del' ? `<del>${esc(o.w)}</del>` : esc(o.w)}));
+  const f = ops.filter(o => o.t !== 'del').map(o => ({raw:o.w, html: o.t === 'ins' ? `<ins>${esc(o.w)}</ins>` : esc(o.w)}));
+  return `<div class="diff"><div><b class="l">Dein Satz</b> ${joinPieces(u)}</div><div><b class="l">Korrektur</b> ${joinPieces(f)}</div></div>`;
+}
+function bestAnswer(u, answers){
+  let best = answers[0], bs = -1;
+  answers.forEach(a => {
+    const ops = lcsDiff(tok(u), tok(a));
+    const sc = ops.filter(o => o.t === 'same').length - ops.filter(o => o.t !== 'same').length * 0.01;
+    if(sc > bs){ bs = sc; best = a; }
+  });
+  return best;
+}
+function hintsFor(ex, u){
+  const t = tok(u), h = [];
+  const has = p => t.includes(p);
+  const other = ex.pron === 'y' ? 'en' : 'y';
+  if(!has(ex.pron)){
+    h.push(has(other)
+      ? `Hier brauchst du <b>${ex.pron}</b>, nicht <b>${other}</b>: ${ex.pron === 'en' ? 'Die Ortsangabe wird mit <i>de</i> eingeleitet.' : 'Die Ortsangabe wird mit <i>à / chez / dans …</i> eingeleitet.'}`
+      : `Das Pronomen <b>${ex.pron}</b> fehlt.`);
+  } else {
+    h.push(`Das Pronomen <b>${ex.pron}</b> ist richtig – prüfe Stellung, Konjugation, Verneinung und Akzente.`);
+  }
+  if(ex.place && ex.place.some(p => u.includes(p))) h.push('Die Ortsangabe soll <b>vollständig</b> durch das Pronomen ersetzt werden.');
+  return h;
+}
+
+/* =========================================================  Teil A  ========================================================= */
+function renderA(){
+  $('#exA').innerHTML = A.map((x,i) => `
+    <div class="qcard" data-id="${x.id}">
+      <div class="qn">${i+1}</div>
+      <div class="qb">
+        <p class="sent fr">${x.pre}<span class="place">${x.ph}</span>${x.post}</p>
+        <div class="row-btns"><button class="btn-choice" data-v="y">y</button><button class="btn-choice" data-v="en">en</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>`).join('');
+  A.forEach(x => { if(state[x.id] === 'ok'){ const c = $(`[data-id="${x.id}"]`); markA(c, x, x.ans); } });
+}
+function markA(card, x, choice){
+  const right = choice === x.ans;
+  $$('.btn-choice', card).forEach(b => {
+    b.classList.remove('right','wrong');
+    if(b.dataset.v === choice) b.classList.add(right ? 'right' : 'wrong');
+  });
+  cardClass(card, right ? 'ok' : 'bad');
+  setFb($('.fb', card), right?'ok':'no',
+    right ? verdict('ok','✔ Richtig!') + `<div class="why">${x.why}</div><div class="why">Mit Pronomen: <b class="fr">${hl(x.res)}</b></div>`
+          : verdict('no','✘ Leider falsch.') + `<div class="why">Tipp: Welche Präposition steht vor dem Ort? Bei <b>de</b> (Woher?) brauchst du <b>en</b>, sonst <b>y</b>. Versuche es noch einmal!</div>`);
+}
+$('#exA').addEventListener('click', e => {
+  const b = e.target.closest('.btn-choice'); if(!b) return;
+  const card = b.closest('.qcard'), x = A.find(a => a.id === card.dataset.id);
+  markA(card, x, b.dataset.v);
+  setState(x.id, b.dataset.v === x.ans ? 'ok' : 'x');
+});
+
+/* =========================================================  Teil B  ========================================================= */
+function renderB(){
+  $('#exB').innerHTML = B.map((x,i) => `
+    <div class="qcard" data-id="${x.id}">
+      <div class="qn">${i+1}</div>
+      <div class="qb">
+        <p class="ctx fr">– ${x.q}</p>
+        <p class="sent fr">– ${x.pre}<input type="text" class="gap" maxlength="3" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pronomen">${x.post}</p>
+        <div class="row-btns"><button class="btn" data-act="check">Prüfen</button><button class="btn ghost" data-act="solve">Lösung</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>`).join('');
+  B.forEach(x => { if(state[x.id] === 'ok'){ const c = $(`#exB [data-id="${x.id}"]`); $('input', c).value = x.ans; checkB(c, x, true); } });
+}
+function checkB(card, x, silent){
+  const v = $('input', card).value.trim().toLowerCase();
+  const fb = $('.fb', card);
+  if(!v){ setFb(fb,'no', verdict('no','Bitte trage zuerst y oder en ein.')); return; }
+  if(v === x.ans){
+    cardClass(card,'ok');
+    setFb(fb,'ok', verdict('ok','✔ Richtig!') + `<div class="why">${x.why}</div><div class="why">Satz: <b class="fr">${x.full}</b></div>`);
+    if(!silent) setState(x.id,'ok');
+  } else {
+    cardClass(card,'bad');
+    const msg = (v === 'y' || v === 'en')
+      ? `Hier passt <b>${x.ans}</b>, nicht <b>${v}</b>.`
+      : 'Trage nur <b>y</b> oder <b>en</b> ein.';
+    setFb(fb,'no', verdict('no','✘ Nicht ganz.') + `<div class="why">${msg} ${x.why.replace(/<b>(y|en)<\/b>/,'$1')}</div>
+      <button class="mini" data-act="fix">Korrektur übernehmen</button>`);
+    if(!silent) setState(x.id,'x');
+  }
+}
+$('#exB').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-act]'); if(!btn) return;
+  const card = btn.closest('.qcard'), x = B.find(b => b.id === card.dataset.id);
+  if(btn.dataset.act === 'check') checkB(card, x);
+  if(btn.dataset.act === 'fix'){ $('input', card).value = x.ans; checkB(card, x); }
+  if(btn.dataset.act === 'solve'){
+    $('input', card).value = x.ans; cardClass(card,'almost');
+    setFb($('.fb', card),'almost', verdict('almost','Lösung:') + `<div class="why"><b class="fr">${x.full}</b></div><div class="why">${x.why}</div>`);
+    if(state[x.id] !== 'ok') setState(x.id,'shown');
+  }
+});
+$('#exB').addEventListener('keydown', e => {
+  if(e.key === 'Enter' && e.target.matches('input')){ e.preventDefault(); $('[data-act=check]', e.target.closest('.qcard')).click(); }
+});
+
+/* =========================================================  Teil C  ========================================================= */
+const cState = {};
+function shuffle(arr){
+  let a = [...arr], tries = 0;
+  do{ for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } tries++; }
+  while(a.every((v,i) => v === arr[i]) && tries < 10);
+  return a;
+}
+const disp = t => t.replace(/'/g, '’');
+function renderC(){
+  $('#exC').innerHTML = C.map((x,i) => {
+    cState[x.id] = {order: shuffle(x.tokens), chosen: []};
+    return `
+    <div class="qcard" data-id="${x.id}">
+      <div class="qn">${i+1}</div>
+      <div class="qb">
+        <p class="ctx">🇩🇪 ${x.de}</p>
+        <div class="build" aria-label="Dein Satz"></div>
+        <div class="bank"></div>
+        <div class="row-btns"><button class="btn" data-act="check">Prüfen</button><button class="btn ghost" data-act="reset">Zurücksetzen</button><button class="btn ghost" data-act="solve">Lösung</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>`; }).join('');
+  C.forEach(x => drawC(x));
+  C.forEach(x => { if(state[x.id] === 'ok'){ const c = $(`#exC [data-id="${x.id}"]`); cState[x.id].chosen = x.tokens.map(t => cState[x.id].order.findIndex((o,k) => o === t && !cState[x.id].chosen.includes(k))); fixChosen(x); drawC(x); checkC(c, x, true); } });
+}
+function fixChosen(x){
+  const st = cState[x.id], used = [];
+  st.chosen = x.tokens.map(t => { const k = st.order.findIndex((o,i) => o === t && !used.includes(i)); used.push(k); return k; });
+}
+function drawC(x){
+  const card = $(`#exC [data-id="${x.id}"]`), st = cState[x.id];
+  $('.bank', card).innerHTML = st.order.map((t,i) => `<button class="tok ${st.chosen.includes(i)?'used':''}" data-i="${i}" data-where="bank">${disp(t)}</button>`).join('');
+  $('.build', card).innerHTML = st.chosen.map(i => `<button class="tok" data-i="${i}" data-where="build">${disp(st.order[i])}</button>`).join('');
+}
+function checkC(card, x, silent){
+  const st = cState[x.id], fb = $('.fb', card);
+  const built = st.chosen.map(i => st.order[i]);
+  if(built.length < x.tokens.length){ setFb(fb,'no', verdict('no','Setze zuerst alle Wörter ein.')); return; }
+  if(built.join(' ').toLowerCase() === x.tokens.join(' ').toLowerCase()){
+    cardClass(card,'ok');
+    setFb(fb,'ok', verdict('ok','✔ Richtig!') + `<div class="why"><b class="fr">${x.full}</b></div><div class="why">${x.why}</div>`);
+    if(!silent) setState(x.id,'ok');
+  } else {
+    cardClass(card,'bad');
+    const u = built.join(' '), a = x.tokens.join(' ');
+    setFb(fb,'no', verdict('no','✘ Noch nicht ganz.') + diffBlock(u, a) + `<div class="why">${x.why}</div>`);
+    if(!silent) setState(x.id,'x');
+  }
+}
+$('#exC').addEventListener('click', e => {
+  const card = e.target.closest('.qcard'); if(!card) return;
+  const x = C.find(c => c.id === card.dataset.id), st = cState[x.id];
+  const tk = e.target.closest('.tok');
+  if(tk){
+    const i = +tk.dataset.i;
+    if(tk.dataset.where === 'bank' && !st.chosen.includes(i)) st.chosen.push(i);
+    else if(tk.dataset.where === 'build') st.chosen = st.chosen.filter(k => k !== i);
+    cardClass(card, null); setFb($('.fb', card), '', ''); drawC(x); return;
+  }
+  const btn = e.target.closest('button[data-act]'); if(!btn) return;
+  if(btn.dataset.act === 'check') checkC(card, x);
+  if(btn.dataset.act === 'reset'){ st.chosen = []; cardClass(card,null); setFb($('.fb', card),'',''); drawC(x); }
+  if(btn.dataset.act === 'solve'){
+    fixChosen(x); drawC(x); cardClass(card,'almost');
+    setFb($('.fb', card),'almost', verdict('almost','Lösung:') + `<div class="why"><b class="fr">${x.full}</b></div><div class="why">${x.why}</div>`);
+    if(state[x.id] !== 'ok') setState(x.id,'shown');
+  }
+});
+
+/* =========================================================  Teil D  ========================================================= */
+function renderD(){
+  $('#exD').innerHTML = D.map((x,i) => `
+    <div class="qcard" data-id="${x.id}">
+      <div class="qn">${i+1}</div>
+      <div class="qb">
+        <p class="ctx fr">– ${x.q}</p>
+        <div class="cue">✏️ ${x.cue}</div><br>
+        <input type="text" class="ans-in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Deine Antwort auf Französisch …" aria-label="Antwort ${i+1}">
+        <div class="row-btns"><button class="btn" data-act="check">Prüfen</button><button class="btn ghost" data-act="tip">Tipp</button><button class="btn ghost" data-act="solve">Lösung</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>`).join('');
+  D.forEach(x => { if(state[x.id] === 'ok'){ const c = $(`#exD [data-id="${x.id}"]`); $('input', c).value = x.full; checkD(c, x, true); } });
+}
+function checkD(card, x, silent){
+  const raw = $('input', card).value, fb = $('.fb', card), u = norm(raw);
+  if(!u){ setFb(fb,'no', verdict('no','Bitte schreibe zuerst deine Antwort.')); return; }
+  const answers = x.ans.map(norm);
+  if(answers.includes(u)){
+    cardClass(card,'ok');
+    setFb(fb,'ok', verdict('ok','✔ Richtig!') + `<div class="why"><b class="fr">${x.full}</b></div><div class="why">${x.pos}</div><div class="why">🇩🇪 ${x.de}</div>`);
+    if(!silent) setState(x.id,'ok');
+    return;
+  }
+  const best = bestAnswer(u, answers);
+  if(answers.some(a => strip(a) === strip(u))){
+    cardClass(card,'almost');
+    setFb(fb,'almost', verdict('almost','Fast! Achte auf die Akzente.') + diffBlock(u, best) + `<button class="mini" data-act="fix" data-fill="${esc(x.full)}">Korrektur übernehmen</button>`);
+    if(!silent && state[x.id] !== 'ok') setState(x.id,'x');
+    return;
+  }
+  cardClass(card,'bad');
+  const hints = hintsFor(x, u).map(h => `<div class="why">💡 ${h}</div>`).join('');
+  setFb(fb,'no', verdict('no','✘ Noch nicht richtig.') + diffBlock(u, best) + hints + `<div class="why">${x.pos}</div><button class="mini" data-act="fix" data-fill="${esc(x.full)}">Korrektur übernehmen</button>`);
+  if(!silent) setState(x.id,'x');
+}
+$('#exD').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-act]'); if(!btn) return;
+  const card = btn.closest('.qcard'), x = D.find(d => d.id === card.dataset.id);
+  const act = btn.dataset.act;
+  if(act === 'check') checkD(card, x);
+  if(act === 'fix'){ $('input', card).value = btn.dataset.fill; $('input', card).focus(); }
+  if(act === 'tip'){
+    setFb($('.fb', card), 'tip', `<div class="why">💡 Ersetze die Ortsangabe durch <b>y</b> oder <b>en</b> und achte auf die Stellung. ${x.place ? '' : ''}<br>${x.pron === 'en' ? 'Die Ortsangabe wird mit <b>de</b> eingeleitet.' : 'Die Ortsangabe wird mit <b>à / chez / dans …</b> eingeleitet.'}</div>`);
+  }
+  if(act === 'solve'){
+    $('input', card).value = x.full; cardClass(card,'almost');
+    setFb($('.fb', card),'almost', verdict('almost','Lösung:') + `<div class="why"><b class="fr">${x.full}</b></div><div class="why">${x.pos}</div><div class="why">🇩🇪 ${x.de}</div>`);
+    if(state[x.id] !== 'ok') setState(x.id,'shown');
+  }
+});
+$('#exD').addEventListener('keydown', e => {
+  if(e.key === 'Enter' && e.target.matches('input')){ e.preventDefault(); $('[data-act=check]', e.target.closest('.qcard')).click(); }
+});
+
+/* =========================================================  Sonderzeichen  ========================================================= */
+let lastInput = null;
+document.addEventListener('focusin', e => { if(e.target.matches && e.target.matches('input[type=text]')) lastInput = e.target; });
+const chars = ['é','è','ê','ë','à','â','ç','î','ï','ô','ù','û','œ','’'];
+chars.forEach(c => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = c; b.title = 'Zeichen einfügen: ' + c;
+  b.addEventListener('mousedown', e => e.preventDefault());
+  b.addEventListener('click', () => {
+    if(!lastInput) return;
+    const i = lastInput, s = i.selectionStart ?? i.value.length, en = i.selectionEnd ?? s;
+    i.value = i.value.slice(0, s) + c + i.value.slice(en);
+    i.focus(); i.setSelectionRange(s+1, s+1);
+  });
+  $('#chars').appendChild(b);
+});
+
+/* =========================================================  Start & Reset  ========================================================= */
+function renderAll(){ renderA(); renderB(); renderC(); renderD(); updateProgress(); }
+$('#resetAll').addEventListener('click', () => {
+  if(!confirm('Alle Antworten und den Fortschritt wirklich zurücksetzen?')) return;
+  state = {}; persist(); renderAll();
+});
+renderAll();
+</script>
+</body>
+</html>
